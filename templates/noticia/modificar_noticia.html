@@ -1,0 +1,76 @@
+{% extends 'base/sidebar.html' %}
+
+{% block NavName %}Modificar noticia {% endblock %} 
+{% block NavBtn %}
+<a name="" id="" class="btn btn-outline-danger btn-sm" href="{% url 'listarNoticias' %}" role="button">Volver</a>
+<a name="" id="" class="btn btn-outline-secondary btn-sm" href="{% url 'crear-noticia' %}" role="button">Agregar noticia</a>
+{% endblock %}
+
+{% block tablas %}
+<section>
+    <div class="card">
+        <div class="card-body" style="background:#E8E8EE;">
+            
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="container">
+                    <strong>
+                    <div class="row">
+                      <div class="col">
+                        {{form.titulo}}
+                      </div>
+                      <div class="col">
+                        {{form.subtitulo}}
+                      </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col">
+                            {{form.autor}}
+                            <small id="helpId" class="form-text text-muted">Autor</small>
+                        </div>
+                        <div class="col">
+                            {{form.categoria}}
+                            <small id="helpId" class="form-text text-muted">Categoria</small>
+                        </div>
+                        <div class="col"> 
+                            {{form.status}}
+                            <small id="helpId" class="form-text text-muted">Estado</small>
+                        </div>
+                        <div class="col">
+                            {{form.fechaCreacion}}
+                            <small id="helpId" class="form-text text-muted">Creado</small>
+                        </div>
+                        <div class="col">
+                            {{form.fechaPublicacion}}
+                            <small id="helpId" class="form-text text-muted">Publicado</small>
+                        </div>
+                    </div>
+                    <br/>
+                   
+                    <div class="col">
+                        {{form.contenido}}
+                        <small id="helpId" class="form-text text-muted">Contenido</small>
+                    </div>
+                    <br/>
+                    <div class="row" >
+                        <div class="col-2" align="center">
+                            <picture>
+                                <source srcset="{{MEDIA_ROOT}}/media/{{form.imagen.value}}" type="image/svg+xml">
+                                <img src="{{MEDIA_URL}}/media/{{form.imagen.name}}" class="rounded-top" alt="image desc" height="75">
+                            </picture>
+                        </div>
+                        <div class="col-6">
+                            {{form.imagen}}
+                            <small id="helpId" class="form-text text-muted">Imagen principal</small> 
+                        </div>
+                    </div>
+                    </strong>
+                </div>
+                <br/>    
+                <input class="btn btn-outline-primary btn-xs" type="submit" value="Guardar">
+            </form>
+        </div>
+    </div>
+    </section>
+{% endblock %} 

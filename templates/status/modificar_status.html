@@ -1,0 +1,30 @@
+{% extends 'base/sidebar.html' %}
+
+{% block NavName %}Modificar categoria {% endblock %} 
+{% block NavBtn %}
+<a name="" id="" class="btn btn-outline-danger btn-sm" href="{% url 'listarCategoria' %}" role="button">Volver</a>
+<a name="" id="" class="btn btn-outline-secondary btn-sm" href="{% url 'crear-categoria' %}" role="button">Agregar noticia</a>
+{% endblock %}
+
+{% block tablas %}
+<section>
+    <div class="card">
+        <div class="card-body" style="background:#E8E8EE;">
+            
+            <form method="POST" enctype="multipart/form-data">
+                
+                {% csrf_token %}
+                <div class="container">
+                    
+                    
+                    {{form.as_p}}
+                    
+                </div>
+                
+                <br/>    
+                <input class="btn btn-outline-primary btn-xs" type="submit" value="Guardar">
+            </form>
+        </div>
+    </div>
+    </section>
+{% endblock %} 

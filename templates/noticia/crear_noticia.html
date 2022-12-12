@@ -1,0 +1,68 @@
+{% extends 'base/sidebar.html' %}
+
+{% block NavName %}Crear noticia {% endblock %} 
+{% block NavBtn %} <a name="" id="" class="btn btn-outline-danger btn-sm" href="{% url 'listarNoticias' %}" role="button">Cancelar</a>{% endblock %}
+{% block tablas %}
+    <section>
+    <div class="card">
+        <div class="card-body" style="background:#E8E8EE;">
+            
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+               
+                
+                <div class="container">
+                    <strong>
+                    <div class="row">
+                      <div class="col">
+                        <p class="form-text text">Título</p>
+                        <input type="text" class="form-control" placeholder="{{form.titulo.label}}" name="{{form.titulo.name}}">
+                      </div>
+                      <div class="col">
+                        <p class="form-text text-muted">Subtítulo</p>
+                        <input type="text" class="form-control" placeholder="{{form.subtitulo.label}}" name="{{form.subtitulo.name}}">
+                      </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col">
+                            <p class="form-text text-muted">Autor</p>
+                            {{form.autor}}
+                        </div>
+                        <div class="col">
+                            <p class="form-text text-muted">Categoria</p> 
+                            {{form.categoria}}
+                        </div>
+                        <div class="col">
+                            <p class="form-text text-muted">Estado</p> 
+                            {{form.status}}
+                        </div>
+                        <div class="col">
+                            <p class="form-text text-muted">Creado</p> 
+                            {{form.fechaCreacion}}
+                        </div>
+                        <div class="col">
+                            <p class="form-text text-muted">Publicado</p>
+                            {{form.fechaPublicacion}}
+                        </div>
+                        <div class="col">
+                            <p class="form-text text-muted">Imagen principal</p> 
+                            {{form.imagen}}
+                        </div>
+                        
+                    </div>
+                    <br/>
+                    <div class="col">
+                        <p class="form-text text-muted">Contenido</p> 
+                        {{form.contenido}}
+                    </div> 
+                    </strong>
+
+                </div>
+                <br/>    
+                <input class="btn btn-outline-primary btn-xs" type="submit" value="Guardar">
+            </form>
+        </div>
+    </div>
+    </section>
+{% endblock %} 

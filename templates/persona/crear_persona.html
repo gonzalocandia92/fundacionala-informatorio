@@ -1,0 +1,21 @@
+{% extends 'base/sidebar.html' %}
+
+{% block NavName %}Crear persona {% endblock %} 
+{% block NavBtn %} <a name="" id="" class="btn btn-outline-danger btn-sm" href="{% url 'listaPersonas' %}" role="button">Volver</a>{% endblock %}
+{% block tablas %}
+    <section>
+    <div class="card">
+        <div class="card-body" style="background:#E8E8EE;">
+            
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {{form.as_table}}
+
+                <br/>    
+                <input class="btn btn-outline-primary btn-xs" type="submit" value="Guardar">
+            </form>
+        </div>
+    </div>
+    </section>
+{% endblock %} 

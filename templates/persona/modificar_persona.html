@@ -1,0 +1,63 @@
+{% extends 'base/sidebar.html' %}
+
+{% block NavName %}Modificar persona {% endblock %} 
+{% block NavBtn %}
+<a name="" id="" class="btn btn-outline-danger btn-sm" href="{% url 'listaPersonas' %}" role="button">Volver</a>
+<a name="" id="" class="btn btn-outline-secondary btn-sm" href="{% url 'crear-persona' %}" role="button">Agregar noticia</a>
+{% endblock %}
+
+{% block tablas %}
+<section>
+    <div class="card">
+        <div class="card-body" style="background:#E8E8EE;">
+            
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+               
+                <div class="container">
+                    <strong>
+                    
+                    <div class="col">
+                        <small id="helpId" class="form-text text-muted">Nombre de usuario</small>
+                        {{form.username}}
+                    </div>
+                    <div class="col">
+                        <small id="helpId" class="form-text text-muted">Apellido y nombre</small>
+                        {{form.nombreApellido}}
+                    </div>
+                    <div class="col"> 
+                        <small id="helpId" class="form-text text-muted">Email</small>
+                        {{form.email}}
+                    </div>
+                    <div class="col"> 
+                        <small id="helpId" class="form-text text-muted">Contraseña</small>
+                        {{form.password}}
+                    </div>
+                    <div class="col">
+                        <small id="helpId" class="form-text text-muted">Rol</small>
+                        {{form.rol}}
+                    </div>
+                    
+                    <div class="row" >
+                        <small id="helpId" class="form-text text-muted">Foto de perfil</small> 
+                        <div class="col-2" align="center">
+                            
+                            <picture>
+                                <source srcset="{{MEDIA_ROOT}}/media/{{form.perfilImage.value}}" type="image/svg+xml">
+                                <img src="{{MEDIA_ROOT}}/media/{{form.perfilImage.name}}" class="rounded-top" alt="image desc" height="75">
+                                
+                            </picture>
+                        </div>
+                        <div class="col-6">
+                            {{form.perfilImage}}
+                        </div>
+                    </div>
+                    </strong>
+                </div>
+                <br/>    
+                <input class="btn btn-outline-primary btn-xs" type="submit" value="Guardar">
+            </form>
+        </div>
+    </div>
+    </section>
+{% endblock %} 

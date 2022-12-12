@@ -1,0 +1,28 @@
+{% extends 'base/sidebar.html' %}
+
+{% block NavName %}Lista de categorias {% endblock %} 
+{% block NavBtn %} <a name="" id="" class="btn btn-outline-secondary btn-sm" href="{% url 'crear-categoria' %}" role="button">Agregar categoria</a>{% endblock %}
+{% block tablas %}
+
+<div class="table-responsive-xs">
+    <table class="table table-light">
+        <thead class="table-secondary">
+            <tr>
+                <th scope="col">Nombre de categoria</th>
+                <th scope="col"  class="text-center">Editar</th>
+                <th scope="col"  class="text-center">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categoria in categorias %}
+            <tr>
+                <td>{{categoria.nombre}}</td>
+                <td  class="text-center"><a name="" id="" class="btn btn-info btn-sm" href="{% url 'editarCategoria' categoria.id %}" role="button"><i class="bi bi-check"></i></a></td>
+                <td  class="text-center">    <a name="" id="" class="btn btn-danger btn-sm" href="{% url 'eliminarCategoria' categoria.id %}" role="button"><i class="bi bi-x"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

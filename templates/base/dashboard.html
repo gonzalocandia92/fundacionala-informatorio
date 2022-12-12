@@ -1,0 +1,21 @@
+{% extends 'base/sidebar.html' %}
+
+{% block NavName %}Dashboard {% endblock %} 
+{% block NavBtn %} <a name="" id="" class="btn btn-outline-danger btn-sm" href="{% url 'inicio' %}" role="button">Volver al sitio</a>{% endblock %}
+{% block tablas %}
+    <section>
+    <div class="card">
+        <div class="card-body" style="background:#E8E8EE;">
+            
+            <section class="d-flex flex-column justify-content-center align-items-center pt-5  text-center w-50 m-auto" id="intro">
+                <h1 class="p-3 fs-2 border-top border-3">Bienvenido al sistema de gestión de su <span class="text-success">Aplicación web<span/></h1>
+                  <p class="p-3  fs-4">
+                     <span class="text-success">Informatorio</span> - Grupo 10 - Comisión 6        
+                 </p>  
+                 
+                </section>
+
+        </div>
+    </div>
+    </section>
+{% endblock %} 
