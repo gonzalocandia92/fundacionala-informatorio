@@ -7,6 +7,7 @@ from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
 urlpatterns = [
     # ---- Urls principales ---- #
     path('', views.Principal, name='index'),
+    path('plantilla', views.plantilla, name='plantilla'),
     path('inicio', views.Principal, name='inicio'),
     path('about', views.about, name='about'),
     path('mision', views.mision, name='mision'),

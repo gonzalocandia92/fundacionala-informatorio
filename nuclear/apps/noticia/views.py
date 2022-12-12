@@ -12,6 +12,9 @@ from django.contrib import messages
 def Principal(request):
     return render(request, 'base/index.html')
 
+def plantilla(request):
+    return render(request, 'plantilla/index.html')
+
 def about(request):
     return render(request, 'miscelaneo/about.html')
 
