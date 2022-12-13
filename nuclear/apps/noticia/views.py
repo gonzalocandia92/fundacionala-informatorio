@@ -15,8 +15,8 @@ def Principal(request):
 def plantilla(request):
     return render(request, 'plantilla/index.html')
 
-def about(request):
-    return render(request, 'miscelaneo/about.html')
+def nosotros(request):
+    return render(request, 'miscelaneo/nosotros.html')
 
 def mision(request):
     return render(request, 'miscelaneo/mision.html')
