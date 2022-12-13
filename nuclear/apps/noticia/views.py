@@ -30,8 +30,6 @@ def galeria(request):
 def contacto(request):
     return render(request, 'miscelaneo/contacto.html')
 
-def dashboard(request):
-    return render(request, 'base/dashboard.html')
 
 # ----- vistas de Sesión ----- #
 
@@ -83,6 +81,13 @@ def validarUsr(request):
     return x.rol.id == 2
     
 # -------------------------------- #
+
+
+def dashboard(request):
+    if validarUsr(request):
+        return render(request, 'base/dashboard.html')
+    else:
+        return render(request, 'miscelaneo/error.html')
 
 # ----- vistas de categorías ----- #
 
