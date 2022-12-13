@@ -76,10 +76,14 @@ def register(request):
     
 # -------------------------------- #
 def validarUsr(request):
-    x = Persona.objects.get(email = request.session['email'])
-    print(x.nombreApellido)
-    return x.rol.id == 2
-    
+    try:
+        if request.session['email']:
+            x = Persona.objects.get(email = request.session['email'])
+            print(x.nombreApellido)
+            return x.rol.id == 2
+    except:
+        return False
+
 # -------------------------------- #
 
 
