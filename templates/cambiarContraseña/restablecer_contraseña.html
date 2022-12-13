@@ -1,0 +1,11 @@
+{% extends "base/base.html" %}
+
+{% block contenido %}
+<H2> Restablecer contraseña </h2>
+<H2>Ingrese su email, le enviaremos instrucciones para ingresar una nueva contraseña</h2>
+<form method="POST">
+    {%csrf_token%}
+    {{form}}
+    <input type="submit" name="Send email">
+</form>
+{% endblock contenido %}

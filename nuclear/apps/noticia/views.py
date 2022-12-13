@@ -130,6 +130,8 @@ def listarNoticias(request):
     else:
         return render(request, 'miscelaneo/error.html')
 
+
+
 class CrearNoticia(generic.CreateView):
     model = Noticia
     template_name = 'noticia/crear_noticia.html'
@@ -232,5 +234,7 @@ def editarPersona(request, id):
 # ----- vistas de Comentarios ----- #
 
 # ver como sería ....
+
+
 
 
