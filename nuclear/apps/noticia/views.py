@@ -41,9 +41,10 @@ def login(request):
             detalleUsuario=Persona.objects.get(email=request.POST['email'], password=request.POST['password'])
             print("Usuario=", detalleUsuario)
             request.session['email']=detalleUsuario.email
-            request.session['username']=detalleUsuario.username
-            print(request.session['username'])
-            return render(request, 'base/index.html')
+            if detalleUsuario.rol.id == 2:
+                return render(request, 'base/dashboard.html')
+            else:
+                return render(request, 'base/index.html')
         except Persona.DoesNotExist as e:
             messages.success(request, 'Nombre de usuario o Contraseña incorrecto')
     return render(request, 'sesion/login.html')
@@ -61,7 +62,6 @@ def register(request):
         nombreApellido=request.POST["nombreApellido"]
         email=request.POST["email"]
         password=request.POST["password"]
-        detalleUsuario=Persona(username=username, email=email, password=password)
         email_exists = (Persona.objects.filter(email = email))
         user_exists = (Persona.objects.filter(username = username))
         if user_exists:
@@ -72,15 +72,16 @@ def register(request):
             return redirect('/register')
         else:
             Persona(username=username, email=email, password=password, nombreApellido=nombreApellido).save()
-            request.session['email']=detalleUsuario.email
             return redirect('inicio')        
     else:
         return render(request, 'sesion/register.html')
     
 # -------------------------------- #
 def validarUsr(request):
-    x = Persona.objects.get(username = request.session['username'])
+    x = Persona.objects.get(email = request.session['email'])
+    print(x.nombreApellido)
     return x.rol.id == 2
+    
 # -------------------------------- #
 
 # ----- vistas de categorías ----- #
