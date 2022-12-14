@@ -1,11 +1,34 @@
 from django.views import generic
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.shortcuts import render, redirect, reverse, HttpResponse
+from django.contrib import messages
 from .models import *
 from .forms import *
-from django.contrib import messages
+
 
 
     
+class NoticiaListView(ListView):
+    """Detail post."""
+    model = Noticia
+    context_object_name = 'noticia'
+    template_name = 'plantilla/index.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(NoticiaListView, self).get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        return context
+       
+
+class NoticiaDetailView(DetailView):
+    """Detail post."""
+    template_name = 'miscelaneo/galeria.html'
+    model = Noticia
+    context_object_name = 'noticia'
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
+
 
 # ----- vistas principales ----- #
 

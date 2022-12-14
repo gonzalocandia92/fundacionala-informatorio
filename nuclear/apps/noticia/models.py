@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.template import defaultfilters
 
 # --- Modelo Roles --- #
 
@@ -66,6 +67,11 @@ class Noticia(models.Model):
     autor = models.ForeignKey(Persona, verbose_name='Autor', on_delete=models.SET_NULL, null=True)
     categoria = models.ForeignKey(Categoria, verbose_name='Categoría', on_delete=models.SET_NULL, null=True)
     status = models.ForeignKey(Status, verbose_name='Estado', on_delete=models.SET_NULL, null=True)
+    slug = models.SlugField(max_length=100, editable=False, null=True)
+    
+    def save(self, *args, **kwargs):
+        self.slug = defaultfilters.slugify(self.titulo)
+        super(Noticia, self).save(*args, **kwargs)
     
     def delete(self, using = None, keep_parents = False):
         self.imagen.delete(self.imagen.name)
