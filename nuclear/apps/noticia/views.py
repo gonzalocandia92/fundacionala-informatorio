@@ -7,7 +7,7 @@ from .models import *
 from .forms import *
 
 
-
+# ----- vistas de posteos ----- #
     
 class NoticiaListView(ListView):
     """Detail post."""
@@ -74,8 +74,8 @@ def logout(request):
     try:
         del request.session['email']
     except:
-        return render(request, 'base/index.html')
-    return render(request, 'base/index.html')
+        return redirect('inicio')
+    return redirect('inicio')
 
 def register(request):
     if request.method == "POST":
@@ -106,7 +106,6 @@ def validarUsr(request):
             return x.rol.id == 2
     except:
         return False
-
 # -------------------------------- #
 
 
