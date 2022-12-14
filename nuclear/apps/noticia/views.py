@@ -13,7 +13,7 @@ class NoticiaListView(ListView):
     """Detail post."""
     model = Noticia
     context_object_name = 'noticia'
-    template_name = 'plantilla/index.html'
+    template_name = 'base/index.html'
     
     def get_context_data(self, **kwargs):
         context = super(NoticiaListView, self).get_context_data(**kwargs)
@@ -32,8 +32,8 @@ class NoticiaDetailView(DetailView):
 
 # ----- vistas principales ----- #
 
-def Principal(request):
-    return render(request, 'base/index.html')
+# def Principal(request):
+#     return render(request, 'base/index.html')
 
 def plantilla(request):
     return render(request, 'plantilla/index.html')

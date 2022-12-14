@@ -6,8 +6,6 @@
                         <!-- SLIDER DE IMAGENES-->
 <!--========================================================== -->
 
-{% comment %} fghjkl {% endcomment %}
-
 <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
     <ol class="carousel-indicators">
       <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true" aria-label="First slide"></li>
@@ -35,9 +33,6 @@
               </div>
           </div>
         </div>
-
-
-
       </div>
       
       <div class="carousel-item">
@@ -58,7 +53,6 @@
               </div>
           </div>
         </div>
-
       </div>
       
       <div class="carousel-item">
@@ -96,37 +90,31 @@
                   <!-- INTRODUCCION DE SERVICIOS-->
 <!--========================================================== -->
   
-      
-      <section class="d-flex flex-column justify-content-center align-items-center pt-5  text-center w-50 m-auto" id="intro">
-      <h1 class="p-3 fs-2 border-top border-3"><span class="text-dark">En Fundación ALA´</span></h1>
-       <p class="p-3  fs-4 ">
-        <span class="text-dark"> Buscamos acompañarte en tu camino de formacion apuntando al  </span><span class="text-primary"> crecimiento personal y profesional.<span/>
-       </p>  
-        <div class="mt-10 text-center">
-        <img id="img-logo" src="static/img/ALA/loguito.png" alt="logo">
-        </div>
-      </section>
 
-      <div class="container-xxl py-5">
+<!------------- SERVICIOS  -------->
+      
+      <section class="d-flex flex-column justify-content-center align-items-center pt-5  text-center w-50 m-auto" >
+        
         <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
+            <div class="row g-7">
+                <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 500px;">
                     <div class="position-relative h-60">
                         <img class="img-fluid  h-60" src="static/img/ALA/asd.png" alt="">
                     </div>
                 </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <h6 class="section-title bg-white text-start text-primary pe-3">           </h6>
-                    <h1 class="mb-4 text-success ">En Fundación ALA´</h1><br/>
+                <div class="col-lg wow fadeInUp" data-wow-delay="0.3s">
+                    <h2 class="section-title bg-white text-start text-success pe-3">  En Fundación ALA´         </h2>
                     <h4 class="mb-4">Buscamos acompañarte en tu camino de formacion apuntando al</h4>
                     <h2 class="mb-4"></span><span class="text-primary"> crecimiento personal y profesional.<span/></p>
-                    
                     <a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
                 </div>
-               
             </div>
         </div>
-    </div>
+      </section>
+
+
+
+
 
 
 <!------------- SERVICIOS  -------->
@@ -197,6 +185,32 @@
         </div>
     </div>
     <!-- Service End -->
+
+<!-- Noticias start -->
+   <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="text-center">
+            <h6 class="section-title bg-white text-center text-primary px-3">Testimonial</h6>
+            <h1 class="mb-5">Our Students Say!</h1>
+        </div>
+        <div class="owl-carousel testimonial-carousel position-relative">
+           
+            {% for object in object_list %}    
+            <div class="testimonial-item text-center rounded">
+                <img class="border rounded-circle p-2 mx-auto mb-3" src="{{MEDIA_URL}}/media/{{object.imagen}}" style="width: 150px; height: 150px;">
+                <h5 class="mb-0 rounded">{{object.titulo}}</h5>
+                <p>{{object.categoria}}</p>
+                <div class="testimonial-text bg-success text-center p-4 rounded">
+                <p class="mb-0 rounded ">{{object.subtitulo}}</p>
+                </div>
+                <p><a href="{% url 'post_detail' object.slug  %}" class="stretched-link"></a></p>
+            </div>
+            {% endfor %}
+            
+        </div>
+    </div>
+</div>
+<!-- Noticas End -->
 
 <!------------------------------------------------------------------>
   <!--- Autoridades -->

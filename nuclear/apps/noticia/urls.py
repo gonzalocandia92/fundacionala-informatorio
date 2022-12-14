@@ -6,9 +6,9 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     # ---- Urls principales ---- #
-    path('', views.Principal, name='index'),
-    path('plantilla', views.plantilla, name='plantilla'),
-    path('inicio', views.Principal, name='inicio'),
+    path('', views.NoticiaListView.as_view(), name='inicio'),
+    path('<slug:slug>/', view=views.NoticiaDetailView.as_view(), name='post_detail'),
+    path('plantilla', views.plantilla, name='plantilla'), # plantilla de prueba
     path('nosotros', views.nosotros, name='nosotros'),
     path('mision', views.mision, name='mision'),
     path('vision', views.vision, name='vision'),
@@ -41,8 +41,7 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('logout', views.logout, name='logout'),
     path('register', views.register, name='register'),
-    path('<slug:slug>/', view=views.NoticiaDetailView.as_view(), name='post_detail'),
-    path('supernoticias', views.NoticiaListView.as_view(), name='supernoticias'),
+    
 
 
 
