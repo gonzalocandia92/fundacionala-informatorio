@@ -1,4 +1,7 @@
 {% extends "base/base.html" %} 
+{% load static %}
+
+
 
 {% block contenido %}
 
@@ -93,7 +96,7 @@
 
 <!------------- SERVICIOS  -------->
       <br/>
-      <section class="d-flex flex-column justify-content-center align-items-center pt-5  text-center w-50 m-auto" >
+      {% comment %} <section class="d-flex flex-column justify-content-center align-items-center pt-5  text-center w-50 m-auto" >
         
         <div class="container">
             <div class="row g-7">
@@ -110,15 +113,18 @@
                 </div>
             </div>
         </div>
-      </section>
+      </section> {% endcomment %}
 
 <!------------- SERVICIOS  -------->
 
+    
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h4 class="section-title bg-white text-center text-success px-3">OBRAS</h4>
-                <p class="p-3  fs-4"><span class="text-dark">¡Con tu ayuda logramos esto y mucho más!</p>
+                <h4 class="section-title bg-white text-center text-success px-3">Fundación ALA´</h4>
+                <img src="{% static 'img/ALA/loguin.png'%}" height="100">  
+                {% comment %} Ver posición y tamaño {% endcomment %}
+                <p class="p-3  fs-4"><span class="text-dark">Buscamos acompañarte en tu camino de formacion apuntando al  <span class="text-primary"> crecimiento personal y profesional.<span/></p></h4
             </div>
             <!--recuadros-->
             <div class="row g-4">
