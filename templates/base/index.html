@@ -197,13 +197,21 @@
         </div>
         <div class="owl-carousel testimonial-carousel position-relative">
            
+            
+            
+
             {% for object in object_list %}    
             <div class="testimonial-item text-center rounded">
-                <img class="border rounded-circle p-2 mx-auto mb-3" src="{{MEDIA_URL}}/media/{{object.imagen}}" style="width: 150px; height: 150px;">
+                <img class="border shadow  p-2 mx-auto mb-3 objetfitcover" src="{{MEDIA_URL}}/media/{{object.imagen}}"
+                            style="
+                                width: 300px;
+                                height: 300px;
+                                object-fit: cover;
+                            ">
                 <h5 class="mb-0 rounded">{{object.titulo}}</h5>
-                <p>{{object.categoria}}</p>
+                <p><a class="badge bg-secondary text-decoration-none link-light" href="#!">{{object.categoria}}</a></p>
                 <div class="testimonial-text bg-outline-light text-center p-4 rounded">
-                <p class="mb-0 rounded ">{{object.subtitulo}}</p>
+                <p class="mb-0 ">{{object.subtitulo}}</p>
                 </div>
                 <p><a href="{% url 'post_detail' object.slug  %}" class="stretched-link"></a></p>
             </div>
