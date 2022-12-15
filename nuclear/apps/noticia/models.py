@@ -86,12 +86,18 @@ class Noticia(models.Model):
 # --- Modelo Comentarios --- #
 
 class Comentario(models.Model):
+    
     fecha = models.DateTimeField(auto_now_add=True, verbose_name='Fecha', null=False)
-    contenido = models.CharField(max_length=50, verbose_name='Título', null=False)
-    autor = models.ForeignKey(Persona, verbose_name='Autor', on_delete=models.SET_NULL, null=True)
+    contenido = models.CharField(max_length=50, verbose_name='Contenido', null=False)
+    autor = models.ForeignKey(Persona, verbose_name='Usuario', on_delete=models.SET_NULL, null=True)
     noticia = models.ForeignKey(Noticia, verbose_name='Noticia', on_delete=models.SET, null=True)
+    
+    class Meta:
+        ordering = ('-fecha',)
     
     def delete(self, using = None, keep_parents = False):
         super().delete()
 
+    def __str__(self):
+        return f"comentario de {self.autor} {self.contenido}"
 

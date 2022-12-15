@@ -48,3 +48,9 @@ class PersonaForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
         })
+            
+class CommentForm(forms.ModelForm):   
+    class Meta:
+        model = Comentario
+        fields = ('contenido',)
+        

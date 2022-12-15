@@ -25,11 +25,89 @@ class NoticiaDetailView(DetailView):
     """Detail post."""
     template_name = 'miscelaneo/galeria.html'
     model = Noticia
+    
     context_object_name = 'noticia'
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     noticia = Noticia.objects.filter(slug=self.kwargs.get('slug'))
+    #     return context
+    # ------Ver como hacer el form
+    # x = Persona.objects.get(email = request.session['email'])
+    # x.rol.id == 2
+    # 
+    
+    def get_context_data(self, *args, **kwargs):
+         
+         noticia = Noticia.objects.get(slug=self.kwargs.get('slug'))
+         id = noticia.id
+         context = super(NoticiaDetailView, self).get_context_data(**kwargs)
+         context['noticia'] = Noticia.objects.get(id=id)
+         context['comentarios'] = Comentario.objects.filter(noticia=id)
+         
+         return context
+      
+    def get(self, request, *args, **kwargs):
+        noticia = Noticia.objects.get(slug=self.kwargs.get('slug'))
+       
+        form = CommentForm()
+        comentarios = Comentario.objects.filter(noticia = noticia).order_by('-fecha')
+
+        context = {
+            'noticia': noticia,
+            'form': form,
+            'comentarios': comentarios,
+        }
+        return render(request, 'miscelaneo/galeria.html', context) 
+
+    def post(self, request, *args, **kwargs):
+        noticia = Noticia.objects.get(slug=self.kwargs.get('slug'))
+        id = noticia.id
+
+        form = CommentForm(request.POST)
+        comentarios = Comentario.objects.filter(noticia = id).order_by('-fecha')
+
+        x = Persona.objects.get(email = request.session['email'])
+
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.autor = x
+            new_comment.noticia = noticia
+            new_comment.save()
+
+        context = {
+            'noticia': noticia,
+            'form': form,
+            'comentarios': comentarios,
+        }
+        return render(request, 'miscelaneo/galeria.html', context) 
+    
+# class PostComentario(DetailView):
+#     model = Comentario
+#     template_name= "miscelaneo/galeria.html"
+#     context_object_name = 'comentarios'
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context["comentarios"] = Comentario.objects.all()
+#         return context
 
 
+# def post_detail(request, id):
+#     noticia = Noticia.objects.get(id=id)
+    
+#     if request.method == 'POST':
+#         form = CommentForm(request.POST)
+        
+#         if form.is_valid():
+#             new_form = form.save(commit=False)
+#             new_form.noticia = noticia
+#             new_form.save() 
+#     else:
+#         form = CommentForm 
+    
+    # return render(request, 'noticia/detalle.html', {'noticia':noticia}, {'form':form})
+    
 # ----- vistas principales ----- #
 
 # def Principal(request):
