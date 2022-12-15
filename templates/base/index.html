@@ -10,14 +10,14 @@
 <!--========================================================== -->
 <br/><br/>
 
-<div id="carouselId" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselId" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <ol class="carousel-indicators">
       <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true" aria-label="First slide"></li>
       <li data-bs-target="#carouselId" data-bs-slide-to="1" aria-label="Second slide"></li>
       <li data-bs-target="#carouselId" data-bs-slide-to="2" aria-label="Third slide"></li>
     </ol>
     <div class="carousel-inner" role="listbox">
-      <div class="carousel-item active">
+      <div class="carousel-item active" data-bs-interval="3500">
         <img src="static/img/ALA/viveros1.png" class="w-20 d-block" alt="First slide">
 
 
@@ -28,18 +28,14 @@
                       <h5 class="text-light animated slideInDown">Te invitamos a ser parte... </h5>
                       <h1 class="display-4 text-white animated slideInDown"> Ven a sembrar semillas de amor.</h1>
                       <p class="fs-5 text-white mb-4 pb-2">✨ Cuidando lo esencial ✨ Abrazando la caridad ✨ Compartiendo lo simple</p>
-                  </div>
-                  <div class="row justify-content-md-center">
-                  <div class="col-md-auto">
-                    <a name="" id="" class="btn btn-dark" href="https://www.manosabiertas.org.ar/navidad-2022/" role="button"  >Ver más</a>
-                  </div>
+                      <a name="" id="" class="btn btn-success" href="https://www.manosabiertas.org.ar/navidad-2022/" role="button"  >Ver más</a>
                   </div>
               </div>
           </div>
         </div>
       </div>
       
-      <div class="carousel-item">
+      <div class="carousel-item" data-bs-interval="3500">
         <img src="static/img/ALA/cjuntos.png" class="w-60 d-block" alt="Second slide">
         <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 6, 0, .4);">
           <div class="container">
@@ -47,10 +43,7 @@
                   <div class="">
                       <h5 class="text-light text-uppercase mb-3 animated slideInDown">#Sumate </h5>
                       <h1 class="display-3 text-white animated slideInDown">¡Crezcamos juntos!</h1>
-                      
-                      <div class="row justify-content-md-center">
-                        <div class="col-md-auto">
-                          <a name="" id="" class="btn btn-dark" href="https://www.manosabiertas.org.ar" role="button"  >Ver más</a>
+                      <a name="" id="" class="btn btn-success" href="https://www.manosabiertas.org.ar" role="button"  >Ver más</a>
                         </div>
                         </div>
                   </div>
@@ -59,7 +52,7 @@
         </div>
       </div>
       
-      <div class="carousel-item">
+      <div class="carousel-item" data-bs-interval="3500">
         <img src="static/img/ALA/herramienta1.png"  class="w-60 d-block" alt="Third slide">
           <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 6, 0, .4);">
             <div class="container">
@@ -68,11 +61,7 @@
                         <h5 class="text-light text-uppercase mb-3 animated slideInDown">No te quedes afuera</h5>
                         <h1 class="display-3 text-white animated slideInDown">¡Aprende con nosotros, y aposta a un futuro mejor!</h1>
                         <p class="fs-5 text-white mb-4 pb-2">Haz de tu oficio, un estilo de vida.</p>
-                        <div class="row justify-content-md-center">
-                          <div class="col-md-auto">
-                            <a name="" id="" class="btn btn-danger" href="https://donaronline.org/manos-abiertas/donar" role="button"  >Ver más</a>
-                          </div>
-                          </div>
+                        <a name="" id="" class="btn btn-success" href="https://donaronline.org/manos-abiertas/donar" role="button"  >Ver más</a>
                     </div>
                 </div>
             </div>
@@ -80,14 +69,14 @@
       </div>   
       
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+    {% comment %} <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Anterior</span>
     </button>
     <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">siguiente</span>
-      </button>
+      </button> {% endcomment %}
   </div>
   
 <!--========================================================== -->
@@ -196,10 +185,6 @@
             <h1 class="mb-5">Te invitamos a conocer las más recientes</h1>
         </div>
         <div class="owl-carousel testimonial-carousel position-relative">
-           
-            
-            
-
             {% for object in object_list %}    
             <div class="testimonial-item text-center rounded">
                 <img class="border shadow  p-2 mx-auto mb-3 objetfitcover" src="{{MEDIA_URL}}/media/{{object.imagen}}"
@@ -216,7 +201,6 @@
                 <p><a href="{% url 'post_detail' object.slug  %}" class="stretched-link"></a></p>
             </div>
             {% endfor %}
-            
         </div>
     </div>
 </div>
