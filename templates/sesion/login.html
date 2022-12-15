@@ -17,10 +17,12 @@
         background: #fccb90;
         
         /* Chrome 10-25, Safari 5.1-6 */
-        background: -webkit-linear-gradient(to right, #0c093e, #001d82, #2248a3);
+        background: -webkit-linear-gradient(283deg, rgba(255,237,170,1) 0%, rgba(255,224,208,1) 48%, rgba(255,232,144,1) 100%);
+
         
         /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        background: linear-gradient(to right, #0c093e, #001d82, #2248a3);
+        background: linear-gradient(283deg, rgba(255,237,170,1) 0%, rgba(255,224,208,1) 48%, rgba(255,232,144,1) 100%);
+
         }
         
         @media (min-width: 768px) {
@@ -72,10 +74,15 @@ Ya inició sesión
                       <input type="password" id="form2Example22" class="form-control" name="password"/>
                       <label class="form-label" for="form2Example22">Contraseña</label>
                     </div>
-  
-                    <div class="text-center pt-1 mb-5 pb-1">
-                      <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Iniciar Sesión</button>&nbsp;&nbsp;  
+                    
+
+                    <!-- <div class="text-center text-black pt-1 mb-5 pb-1">
+                      <button class="btn btn-dark btn-block fa-lg gradient-custom-2 mb-3" type="submit"><span class="text-dark"> Iniciar Sesión</button>&nbsp;&nbsp;  
+                    </div> -->
+                    <div class="text-center text-black pt-1 mb-5 pb-1">
+                      <button class="btn btn-outline-info" type="submit"> Iniciar Sesión </button>&nbsp;&nbsp;  
                     </div>
+                   
                     {% if messages %}
                     {% for msg in messages %}
                     <div class="text-center pt-1 mb-5 pb-1">
@@ -90,23 +97,23 @@ Ya inició sesión
                 </div>
               </div>
               <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
-                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <div class="text-brown px-3 py-4 p-md-5 mx-md-4">
                   
                   <div class="d-flex align-items-center justify-content-center ">
-                    <img src="{{MEDIA_ROOT}}/static/img/logoManosAbiertas.jpg"
-                      style="width: 185px;" alt="logo">
+                    <img src="{{MEDIA_ROOT}}/static/img/ALA/loguin.png"
+                      style="width: 185px;" alt="logau">
                   </div>
 
                   <br/>
 
                   <h4 class="mb-4"> Unete, seamos más </h4>
-                  <p class="small mb-0">Somos más que una organización, sumate a nosotros y 
+                  <p class="big mb-0">Somos más que una organización, sumate a nosotros y 
                     aportemos para un futuro mejor.
                   </p>
                     
                     <br/>
                     <div class="d-flex align-items-center justify-content-center pb-4">
-                        <p class="mb- me-2">¿Todavía no tenés cuenta?</p>
+                        <p class="mb- me-">¿Todavía no tenés cuenta?</p>
                     </div>
 
                     <div class="d-flex align-items-center justify-content-center ">
