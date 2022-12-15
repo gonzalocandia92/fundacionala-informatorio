@@ -1,10 +1,12 @@
     
   {% load static %}
+
+  
   <header>
    <!-- <nav class="navbar fixed-top navbar-expand navbar-dark" style="background: linear-gradient(to top, rgba(20,150,20,0) 0%, rgba(20,150,20,.8) 50%);">-->
 
-    <nav class="navbar fixed-top navbar-expand navbar-dark" style="background: rgba(0, 122, 0, .8);">
-        &nbsp<img src="{% static 'img/ALA/loguin.png'%}" height="45">&nbsp
+    <nav class="navbar navbar-expand fixed-top shadow p-3 mb-5 bg-body rounded">
+        
       <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
            aria-expanded="false" aria-label="Toggle navigation"></button>
       <div class="collapse navbar-collapse" id="collapsibleNavId">
@@ -14,27 +16,45 @@
                    <a class="nav-link active" href=" {% url 'inicio' %}" aria-current="page"> <span class="text-dark">Inicio <span class="visually-hidden">(current)</span></a>
                </li>
                <li class="nav-item">
-                <a class="nav-link" href="#">Noticias</a>
+                <a class="nav-link " href="#"> <span class="text-dark"> Noticias</a>
                 </li>
                <li class="nav-item">
-                   <a class="nav-link" href="{% url 'plantilla'%}">Plantilla</a>
+                   <a class="nav-link" href="{% url 'plantilla'%}"> <span class="text-dark"> Plantilla</a>
                </li>
                <li class="nav-item dropdown">
-                   <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Identidad</a>
-                   <div class="dropdown-menu" aria-labelledby="dropdownId">
-                      <a class="dropdown-item" href="{% url 'nosotros' %}">Acerca de nosotros</a>
-                      <a class="dropdown-item" href="{% url 'mision' %}">Misión</a>
-                      <a class="dropdown-item" href="{% url 'vision' %}">Visión</a>
-                      <a class="dropdown-item" href="{% url 'galeria' %}">Galería</a>
-                   </div>
+                   <a class="nav-link dropdown-toggle" href="{% url 'nosotros' %}"
+                        id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="text-dark">Identidad</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                    <a class="dropdown-item" href="{% url 'nosotros' %}"> <span class="text-dark">Acerca de nosotros</a>
+                                    <a class="dropdown-item" href="{% url 'mision' %}"> <span class="text-dark"> Misión</a>
+                                    <a class="dropdown-item" href="{% url 'vision' %}"><span class="text-dark">Visión</a>
+                                    <a class="dropdown-item" href="{% url 'galeria' %}"><span class="text-dark ">Galería</a>
+                                </div>
                </li>
            </ul>
+           
+          <style>
+                .navbar-brand {
+                    position: absolute;
+                    left: 50%;
+                    transform: translatex(-50%);
+                }
+          </style>
+                   <a class="navbar-brand" href="#"><img src="{% static 'img/ALA/loguin.png'%}" height="45"></a>
+                   
+                    
+          
+           
+           {% comment %} <li class="nav-item">
+            &nbsp&nbsp
+            </li> {% endcomment %}
+       
            
           {% if request.session.email %}
           
                <ul class="nav navbar-nav">
                    <li class="nav-item">
-                       <a class="nav-link" href="{% url 'logout' %} " aria-current="page">Cerrar Sesion <span class="visually-hidden">(current)</span></a>
+                       <a class="nav-link" href="{% url 'logout' %} " aria-current="page"><span class="text-muted"> Cerrar Sesion </span><span class="visually-hidden">(current)</span></a>
                    </li>
                    
                    {% comment %} {% if request.session.rol == 2%}
@@ -46,10 +66,11 @@
           {% else %}
           <ul class="nav navbar-nav">
               <li class="nav-item">
-                  <a class="nav-link active" href="{% url 'login' %} " aria-current="page">Iniciar sesión<span class="visually-hidden">(current)</span></a>
+                <a class="btn btn-outline-success btn-sm" href="{% url 'login' %} " aria-current="page">Iniciar sesión</a>
               </li>
+              &nbsp&nbsp
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'register' %}">Registro</a>
+                <a class="btn btn-outline-dark btn-sm" href="{% url 'register' %} " aria-current="page">Registrarse</a>&nbsp&nbsp
               </li>
           </ul>
           {% endif %}
