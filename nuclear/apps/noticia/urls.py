@@ -14,6 +14,14 @@ urlpatterns = [
     path('contacto', views.contacto, name='contacto'),
     path('donaciones', views.donaciones, name='donaciones'),
     path('dashboard/index', views.dashboard, name='dashboard'),
+    path('centro', views.centro, name='centro'),
+    path('consultorias', views.consultorias, name='consultorias'),
+    path('carpinteria', views.carpinteria, name='carpinteria'),
+    path('jardineria', views.jardineria, name='jardineria'),
+    path('conservas', views.conservas, name='conservas'),
+    
+    
+    
     # ---- Urls Categorias ---- #
     path('listarCategoria', views.listarCategoria, name = 'listarCategoria'),
     path('crear-categoria', views.CrearCategoria.as_view(), name='crear-categoria'),

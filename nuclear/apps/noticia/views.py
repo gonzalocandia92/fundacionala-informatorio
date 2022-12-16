@@ -30,15 +30,7 @@ class NoticiaDetailView(DetailView):
     context_object_name = 'noticia'
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     noticia = Noticia.objects.filter(slug=self.kwargs.get('slug'))
-    #     return context
-    # ------Ver como hacer el form
-    # x = Persona.objects.get(email = request.session['email'])
-    # x.rol.id == 2
-    # 
-    
+
     def get_context_data(self, *args, **kwargs):
          
          noticia = Noticia.objects.get(slug=self.kwargs.get('slug'))
@@ -101,6 +93,24 @@ def contacto(request):
 
 def donaciones(request):
     return render(request, 'miscelaneo/donaciones.html')
+
+def centro(request):
+    return render(request, 'miscelaneo/centro.html')
+
+def consultorias(request):
+    return render(request, 'miscelaneo/consultorias.html')
+
+def carpinteria(request):
+    return render(request, 'miscelaneo/carpinteria.html')
+
+def jardineria(request):
+    return render(request, 'miscelaneo/jardineria.html')
+
+def conservas(request):
+    return render(request, 'miscelaneo/conservas.html')
+
+
+
 
 # ----- vistas de Sesión ----- #
 
