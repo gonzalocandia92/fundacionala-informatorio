@@ -23,7 +23,7 @@ class NoticiaListView(ListView):
 
 class NoticiaDetailView(DetailView):
     """Detail post."""
-    template_name = 'miscelaneo/galeria.html'
+    template_name = 'noticia/detalle.html'
     model = Noticia
     
     context_object_name = 'noticia'
@@ -59,7 +59,7 @@ class NoticiaDetailView(DetailView):
             'form': form,
             'comentarios': comentarios,
         }
-        return render(request, 'miscelaneo/galeria.html', context) 
+        return render(request, 'noticia/detalle.html', context) 
 
     def post(self, request, *args, **kwargs):
         noticia = Noticia.objects.get(slug=self.kwargs.get('slug'))
@@ -81,37 +81,11 @@ class NoticiaDetailView(DetailView):
             'form': form,
             'comentarios': comentarios,
         }
-        return render(request, 'miscelaneo/galeria.html', context) 
+        return render(request, 'noticia/detalle.html', context) 
     
-# class PostComentario(DetailView):
-#     model = Comentario
-#     template_name= "miscelaneo/galeria.html"
-#     context_object_name = 'comentarios'
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context["comentarios"] = Comentario.objects.all()
-#         return context
-
-
-# def post_detail(request, id):
-#     noticia = Noticia.objects.get(id=id)
-    
-#     if request.method == 'POST':
-#         form = CommentForm(request.POST)
-        
-#         if form.is_valid():
-#             new_form = form.save(commit=False)
-#             new_form.noticia = noticia
-#             new_form.save() 
-#     else:
-#         form = CommentForm 
-    
-    # return render(request, 'noticia/detalle.html', {'noticia':noticia}, {'form':form})
     
 # ----- vistas principales ----- #
 
-# def Principal(request):
-#     return render(request, 'base/index.html')
 
 def plantilla(request):
     return render(request, 'plantilla/index.html')
