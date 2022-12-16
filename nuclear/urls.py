@@ -17,7 +17,11 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
 from django.urls import path, include
 from django.conf import settings
+from django.conf.urls import handler404
+from nuclear.apps.noticia.views import handler404, handler500
 
+handler404 = handler404
+handler500 = handler500
 
 urlpatterns = [
     path('admin/', admin.site.urls),

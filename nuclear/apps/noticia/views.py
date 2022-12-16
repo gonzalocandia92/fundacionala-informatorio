@@ -3,6 +3,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.shortcuts import render, redirect, reverse, HttpResponse
 from django.contrib import messages
+from django.views.defaults import page_not_found
 from .models import *
 from .forms import *
 
@@ -91,7 +92,7 @@ def plantilla(request):
     return render(request, 'plantilla/index.html')
 
 def nosotros(request):
-    return render(request, 'miscelaneo/nosotros.html')
+    return render(request, 'base/404.html')
 
 def mision(request):
     return render(request, 'miscelaneo/mision.html')
@@ -314,9 +315,16 @@ def editarPersona(request, id):
     else:
         return render(request, 'miscelaneo/error.html')
 
-# ----- vistas de Comentarios ----- #
+# ----- Error 404 ----- #
 
-# ver como sería ....
+def handler404(request, exception, template_name="404.html"):
+    response = render('base/404.html')
+    response.status_code = 404
+    return response
+
+def handler500(request, *args, **argv):
+    return render(request, 'base/500.html', status=500)
+
 
 
 
