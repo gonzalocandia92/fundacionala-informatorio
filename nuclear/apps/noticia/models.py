@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from django.template import defaultfilters
+from ckeditor.fields import RichTextField
+
 
 # --- Modelo Roles --- #
 
@@ -61,7 +63,7 @@ class Noticia(models.Model):
     titulo = models.CharField(max_length=100, verbose_name='Título', null=False)
     subtitulo = models.CharField(max_length=100, verbose_name='Subtitulo', null=True, blank = True)
     fechaCreacion = models.DateField(default=timezone.now, verbose_name='Fecha de creación')
-    contenido = models.TextField(verbose_name='Contenido', null=True)
+    contenido = RichTextField(verbose_name='Contenido', null=True)
     imagen = models.ImageField(verbose_name='Imagen', blank=True, null=True, upload_to='noticia/', default='noticia/default.png')
     fechaPublicacion = models.DateField(default=timezone.now, verbose_name="Fecha de Publicacion")
     autor = models.ForeignKey(Persona, verbose_name='Autor', on_delete=models.SET_NULL, null=True)

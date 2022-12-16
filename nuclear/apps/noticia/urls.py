@@ -1,8 +1,8 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from django.conf import settings
 from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
-from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     # ---- Urls principales ---- #
@@ -41,10 +41,6 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('logout', views.logout, name='logout'),
     path('register', views.register, name='register'),
-    
-
-
-
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()

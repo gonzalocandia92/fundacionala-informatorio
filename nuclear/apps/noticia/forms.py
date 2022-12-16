@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+from ckeditor.fields import RichTextField
 
 # ---- Modelos Formularios ---- #
 
@@ -12,6 +13,10 @@ class NoticiaForm(forms.ModelForm):
         categoria = forms.ModelMultipleChoiceField(queryset=Categoria.objects.all())
         status = forms.ModelMultipleChoiceField(queryset=Status.objects.all())
         imagen = forms.ImageField()
+        contenido = RichTextField()
+        widgets = {
+            'contenido': forms.Textarea(attrs={'rows': 5, 'col': 100}),
+        }
 
         
     def __init__(self, *args, **kwargs):
