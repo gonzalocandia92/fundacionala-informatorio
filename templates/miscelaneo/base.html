@@ -1,0 +1,35 @@
+
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+
+ <!-- Header Start -->
+ <div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <br/> <br/> <br/> <br/> 
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-2 text-white animated slideInDown">{% block tituloMiscelaneo %} {% endblock %} </h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="#">Inicio</a></li>
+                        <li class="breadcrumb-item"><a class="text-white" href="#">Páginas</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">{% block retituloMiscelaneo %} {% endblock %}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+{% block miscelaneoContenido %}
+
+{% endblock %}
+
+
+
+{% endblock %}

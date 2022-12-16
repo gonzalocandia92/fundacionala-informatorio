@@ -87,12 +87,8 @@ class NoticiaDetailView(DetailView):
     
 # ----- vistas principales ----- #
 
-
-def plantilla(request):
-    return render(request, 'plantilla/index.html')
-
 def nosotros(request):
-    return render(request, 'base/404.html')
+    return render(request, 'miscelaneo/nosotros.html')
 
 def mision(request):
     return render(request, 'miscelaneo/mision.html')
@@ -100,12 +96,11 @@ def mision(request):
 def vision(request):
     return render(request, 'miscelaneo/vision.html')
 
-def galeria(request):
-    return render(request, 'miscelaneo/galeria.html')
-
 def contacto(request):
     return render(request, 'miscelaneo/contacto.html')
 
+def donaciones(request):
+    return render(request, 'miscelaneo/donaciones.html')
 
 # ----- vistas de Sesión ----- #
 
@@ -118,10 +113,11 @@ def login(request):
             if detalleUsuario.rol.id == 2:
                 return render(request, 'base/dashboard.html')
             else:
-                return render(request, 'base/index.html')
+                return redirect('inicio')
         except Persona.DoesNotExist as e:
             messages.success(request, 'Nombre de usuario o Contraseña incorrecto')
     return render(request, 'sesion/login.html')
+
 
 def logout(request):
     try:

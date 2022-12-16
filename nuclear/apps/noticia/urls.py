@@ -8,12 +8,11 @@ urlpatterns = [
     # ---- Urls principales ---- #
     path('', views.NoticiaListView.as_view(), name='inicio'),
     path('<slug:slug>/', view=views.NoticiaDetailView.as_view(), name='post_detail'),
-    path('plantilla', views.plantilla, name='plantilla'), # plantilla de prueba
     path('nosotros', views.nosotros, name='nosotros'),
     path('mision', views.mision, name='mision'),
     path('vision', views.vision, name='vision'),
-    path('galeria', views.galeria, name='galeria'),
-    path('contacto', views.galeria, name='contacto'),
+    path('contacto', views.contacto, name='contacto'),
+    path('donaciones', views.donaciones, name='donaciones'),
     path('dashboard/index', views.dashboard, name='dashboard'),
     # ---- Urls Categorias ---- #
     path('listarCategoria', views.listarCategoria, name = 'listarCategoria'),
