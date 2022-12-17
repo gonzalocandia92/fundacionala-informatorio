@@ -6,11 +6,41 @@
 
 {% block miscelaneoContenido %}
 
-
-
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+       <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+           <span class="sr-only">Loading...</span>
+       </div>
+   </div>
+   <!-- Spinner End -->
 <!------------- Informacion  -------->
+<!-- About Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
+                <div class="position-relative h-100">
+                    <img class="img-fluid position-absolute w-100 h-100" src="static/img/ALA/IMG.png" alt="" style="object-fit: cover;">
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                <h6 class="section-title bg-white text-start text-primary pe-3">FUNDACION ALA´</h6>
+                <h1 class="mb-4">Bienvenido a nuestro Centro Educativo</h1>
+                <p class="mb-4">Somos un Centro Educativo dedicado a la capacitación laboral fuertemente comprometido con la sociedad y la educación.</p>
+                <p class="mb-4">Nos dedicamos a desarrollar actividades que contribuyan a la formación para el trabajo, la re-inserción laboral y el desarrollo de emprendimientos, ofreciendo también acciones solidarias abiertas a toda la comunidad, sin límite de edad.</p>
+                <br/>
+                <p class="mb-6">Para mas informacion contactacte con nosotros.</p>
+                <div class="row gy-2 gx-4 mb-4">
+                    
+                </div>
+                <a class="btn btn-primary py-3 px-5 mt-2" href="{% url 'contacto' %}">Contacto</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
 
-
-
+<body/>
 
 {% endblock %}

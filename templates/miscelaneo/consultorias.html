@@ -7,10 +7,42 @@
 {% block miscelaneoContenido %}
 
 
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+       <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+           <span class="sr-only">Loading...</span>
+       </div>
+   </div>
+   <!-- Spinner End -->
 
 <!------------- Informacion  -------->
+<!-- About Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
+                <div class="position-relative h-100">
+                    <img class="img-fluid position-absolute w-100 h-100" src="static/img/ALA/asesoria.png" alt="" style="object-fit: cover;">
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                <h6 class="section-title bg-white text-start text-primary pe-3">FUNDACION ALA´</h6>
+                <h1 class="mb-4">Consultoria laboral integral</h1>
+                <p class="mb-4">Una asesoría es el servicio que los conocedores de los negocios establecen para brindar apoyo a las empresas en ciertos asuntos. Los cuales, en un principio suelen ser difíciles de dominar, pero al ser sumamente importantes en una negociación empresarial, es necesario conocerlos.</p>
+                <p class="mb-4">Ofrecen sus servicios para ayudar a resolver dudas y cuestiones sobre lo que es más conveniente para la empresa, todo esto gracias a sus conocimientos adquiridos.</p>
+                <br/>
+                <p class="mb-6">Para mas informacion contactacte con nosotros.</p>
+                <div class="row gy-2 gx-4 mb-4">
+                    
+                </div>
+                <a class="btn btn-primary py-3 px-5 mt-2" href="{% url 'contacto' %}">Contacto</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
 
-
-
+<body/>
 
 {% endblock %}

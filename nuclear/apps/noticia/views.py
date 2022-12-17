@@ -82,8 +82,8 @@ class NoticiaDetailView(DetailView):
 def nosotros(request):
     return render(request, 'miscelaneo/nosotros.html')
 
-def mision(request):
-    return render(request, 'miscelaneo/mision.html')
+def identidad(request):
+    return render(request, 'miscelaneo/identidad.html')
 
 def vision(request):
     return render(request, 'miscelaneo/vision.html')

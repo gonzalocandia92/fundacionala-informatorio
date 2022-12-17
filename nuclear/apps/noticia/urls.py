@@ -9,7 +9,7 @@ urlpatterns = [
     path('', views.NoticiaListView.as_view(), name='inicio'),
     path('<slug:slug>/', view=views.NoticiaDetailView.as_view(), name='post_detail'),
     path('nosotros', views.nosotros, name='nosotros'),
-    path('mision', views.mision, name='mision'),
+    path('identidad', views.identidad, name='identidad'),
     path('vision', views.vision, name='vision'),
     path('contacto', views.contacto, name='contacto'),
     path('donaciones', views.donaciones, name='donaciones'),
