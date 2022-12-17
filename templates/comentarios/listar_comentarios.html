@@ -1,0 +1,49 @@
+{% extends 'base/sidebar.html' %}
+
+{% block NavName %}Lista de categorias {% endblock %} 
+{% block NavBtn %} <a name="" id="" class="btn btn-outline-secondary btn-sm" href="{% url 'crear-categoria' %}" role="button">Agregar categoria</a>{% endblock %}
+{% block tablas %}
+
+<section class="container-fluid ">
+    <div id="blog">
+        <h3>Nuestro blog</h3>
+        <ul>
+            <li class="nav-item dropdown">
+                <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">Filtrar por categoria</a>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'blogCategory' 'TALLER' %}">Talleres</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="{% url 'blogCategory' 'VISITA' %}">Visitas</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="{% url 'blogCategory' 'EVENTO' %}">Eventos</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+    <div id="contenedorNoticias" class="contenido">
+
+
+        {% for notice in news %}
+        <!-- Cuerpo noticia -->
+        <div class="card cardNoticia">
+            <img src="{{ notice.img.url }}" class="card-img-top" alt="imagen de noticia">
+            <div class="card-body">
+                <h5 class="card-title">{{ notice.title }}</h5>
+                <p class="card-text">Subida el {{ notice.created }}</p>
+
+                <a type="button" class="btn btn-primary" href="{% url 'newsDetail' notice.id %}">Leer mas</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</section>
+
+{{form.as_p}}
