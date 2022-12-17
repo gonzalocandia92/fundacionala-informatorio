@@ -40,7 +40,7 @@ urlpatterns = [
     path('eliminarStatus/<int:id>', views.eliminarStatus, name='eliminarStatus'),
     path('editarStatus/<int:id>', views.editarStatus, name='editarStatus'),
     # ---- Urls Comentarios ---- #
-    # como sería acá? ................
+     path('eliminarComentario/<int:id>', views.eliminarComentario, name='eliminarComentario'),
     # ---- Urls Personas ---- #
     path('crear-persona', views.CrearPersona.as_view(), name='crear-persona'),
     path('listaPersonas', views.listaPersonas, name='listaPersonas'),

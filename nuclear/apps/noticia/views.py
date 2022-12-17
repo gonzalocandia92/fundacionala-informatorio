@@ -26,7 +26,6 @@ class CategoriaListView(ListView):
         
          categoria = Categoria.objects.get(nombre=self.kwargs.get('nombre'))
          id = categoria.id
-        #  noticia = Noticia.objects.all(categoria=categoria)
          context = super(CategoriaListView, self).get_context_data(**kwargs)
          context['noticia'] = Noticia.objects.filter(categoria=id)
          context['categoria'] = categoria
@@ -61,6 +60,7 @@ class NoticiaDetailView(DetailView):
          context = super(NoticiaDetailView, self).get_context_data(**kwargs)
          context['noticia'] = Noticia.objects.get(id=id)
          context['comentarios'] = Comentario.objects.filter(noticia=id)
+         context['category'] = Categoria.objects.all()
          
          return context
       
@@ -69,11 +69,14 @@ class NoticiaDetailView(DetailView):
        
         form = CommentForm()
         comentarios = Comentario.objects.filter(noticia = noticia).order_by('-fecha')
+        category = Categoria.objects.all()
 
         context = {
             'noticia': noticia,
             'form': form,
             'comentarios': comentarios,
+            'category': category,
+            'admin': validarUsr(request)
         }
         return render(request, 'noticia/detalle.html', context) 
 
@@ -354,6 +357,15 @@ def handler500(request, *args, **argv):
     return render(request, 'base/500.html', status=500)
 
 
+# ----- Comentarios ----- #
 
+def eliminarComentario(request, id):
+    if validarUsr(request):
+        comentario = Comentario.objects.get(id=id)
+        comentario.delete()
+        return redirect('inicio')
+    else:
+        return render(request, 'miscelaneo/error.html')
+    
 
 
