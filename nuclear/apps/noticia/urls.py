@@ -8,6 +8,7 @@ urlpatterns = [
     # ---- Urls principales ---- #
     path('', views.NoticiaListView.as_view(), name='inicio'),
     path('<slug:slug>/', view=views.NoticiaDetailView.as_view(), name='post_detail'),
+    path('categoria/<str:nombre>', views.CategoriaListView.as_view(), name='categoria'),
     path('nosotros', views.nosotros, name='nosotros'),
     path('mision', views.mision, name='mision'),
     path('vision', views.vision, name='vision'),
@@ -27,6 +28,7 @@ urlpatterns = [
     path('crear-categoria', views.CrearCategoria.as_view(), name='crear-categoria'),
     path('eliminarCategoria/<int:id>', views.eliminarCategoria, name='eliminarCategoria'),
     path('editarCategoria/<int:id>', views.editarCategoria, name='editarCategoria'),
+    
     # ---- Urls Noticias ---- #
     path('listarNoticias', views.listarNoticias, name = 'listarNoticias'),
     path('crear-noticia', views.CrearNoticia.as_view(), name='crear-noticia'),

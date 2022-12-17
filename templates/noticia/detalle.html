@@ -25,7 +25,7 @@
                     <div class="text-muted fst-italic mb-2">Publicado el {{noticia.fechaPublicacion}}</div>
                     
                     <!-- Post categories-->
-                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{noticia.categoria}}</a>
+                    <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'categoria' noticia.categoria %}">{{noticia.categoria}}</a>
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!">Escrito por {{noticia.autor}}</a>
                 </header>
                 <!-- Preview image figure-->
