@@ -43,7 +43,7 @@ urlpatterns = [
     path('eliminarComentario/<int:id>', views.eliminarComentario, name='eliminarComentario'),
     path('dashboard/eliminarComentarioDash/<int:id>/<int:newsid>', views.eliminarComentarioDash, name='eliminarComentarioDash'),
     path('dashboard/listarComentarios', views.listarComentarios, name='listarComentarios'),
-    path('dashboard/filtrarComentarios/<int:news_id>', views.filtrarComentarios, name='filtrarComentarios'),
+    path('dashboard/listarComentarios/<int:news_id>', views.filtrarComentarios, name='filtrarComentarios'),
     # ---- Urls Personas ---- #
     path('dashboard/crear-persona', views.CrearPersona.as_view(), name='crear-persona'),
     path('dashboard/listaPersonas', views.listaPersonas, name='listaPersonas'),
