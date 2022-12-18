@@ -24,28 +24,31 @@ urlpatterns = [
     
     
     # ---- Urls Categorias ---- #
-    path('listarCategoria', views.listarCategoria, name = 'listarCategoria'),
-    path('crear-categoria', views.CrearCategoria.as_view(), name='crear-categoria'),
-    path('eliminarCategoria/<int:id>', views.eliminarCategoria, name='eliminarCategoria'),
-    path('editarCategoria/<int:id>', views.editarCategoria, name='editarCategoria'),
+    path('dashboard/listarCategoria', views.listarCategoria, name = 'listarCategoria'),
+    path('dashboard/crear-categoria', views.CrearCategoria.as_view(), name='crear-categoria'),
+    path('dashboard/eliminarCategoria/<int:id>', views.eliminarCategoria, name='eliminarCategoria'),
+    path('dashboard/editarCategoria/<int:id>', views.editarCategoria, name='editarCategoria'),
     
     # ---- Urls Noticias ---- #
-    path('listarNoticias', views.listarNoticias, name = 'listarNoticias'),
-    path('crear-noticia', views.CrearNoticia.as_view(), name='crear-noticia'),
-    path('eliminarNoticia/<int:id>', views.eliminarNoticia, name='eliminarNoticia'),
-    path('editarNoticia/<int:id>', views.editarNoticia, name='editarNoticia'),
+    path('dashboard/listarNoticias', views.listarNoticias, name = 'listarNoticias'),
+    path('dashboard/crear-noticia', views.CrearNoticia.as_view(), name='crear-noticia'),
+    path('dashboard/eliminarNoticia/<int:id>', views.eliminarNoticia, name='eliminarNoticia'),
+    path('dashboard/editarNoticia/<int:id>', views.editarNoticia, name='editarNoticia'),
      # ---- Urls status ---- #
-    path('listarStatus', views.listarStatus, name = 'listarStatus'),
-    path('crear-status', views.CrearStatus.as_view(), name='crear-status'),
-    path('eliminarStatus/<int:id>', views.eliminarStatus, name='eliminarStatus'),
-    path('editarStatus/<int:id>', views.editarStatus, name='editarStatus'),
+    path('dashboard/listarStatus', views.listarStatus, name = 'listarStatus'),
+    path('dashboard/crear-status', views.CrearStatus.as_view(), name='crear-status'),
+    path('dashboard/eliminarStatus/<int:id>', views.eliminarStatus, name='eliminarStatus'),
+    path('dashboard/editarStatus/<int:id>', views.editarStatus, name='editarStatus'),
     # ---- Urls Comentarios ---- #
-     path('eliminarComentario/<int:id>', views.eliminarComentario, name='eliminarComentario'),
+    path('eliminarComentario/<int:id>', views.eliminarComentario, name='eliminarComentario'),
+    path('dashboard/eliminarComentarioDash/<int:id>/<int:newsid>', views.eliminarComentarioDash, name='eliminarComentarioDash'),
+    path('dashboard/listarComentarios', views.listarComentarios, name='listarComentarios'),
+    path('dashboard/filtrarComentarios/<int:news_id>', views.filtrarComentarios, name='filtrarComentarios'),
     # ---- Urls Personas ---- #
-    path('crear-persona', views.CrearPersona.as_view(), name='crear-persona'),
-    path('listaPersonas', views.listaPersonas, name='listaPersonas'),
-    path('eliminarPersona/<int:id>', views.eliminarPersona, name='eliminarPersona'),
-    path('editarPersona/<int:id>', views.editarPersona, name='editarPersona'),
+    path('dashboard/crear-persona', views.CrearPersona.as_view(), name='crear-persona'),
+    path('dashboard/listaPersonas', views.listaPersonas, name='listaPersonas'),
+    path('dashboard/eliminarPersona/<int:id>', views.eliminarPersona, name='eliminarPersona'),
+    path('dashboard/editarPersona/<int:id>', views.editarPersona, name='editarPersona'),
     # ---- Urls Sesión ---- #
     path('login', views.login, name='login'),
     path('logout', views.logout, name='logout'),

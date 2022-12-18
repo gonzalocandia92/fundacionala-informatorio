@@ -1,49 +1,43 @@
 {% extends 'base/sidebar.html' %}
 
-{% block NavName %}Lista de categorias {% endblock %} 
-{% block NavBtn %} <a name="" id="" class="btn btn-outline-secondary btn-sm" href="{% url 'crear-categoria' %}" role="button">Agregar categoria</a>{% endblock %}
+{% block NavName %}Lista de comentarios {% endblock %} 
+{% block NavBtn %} <a name="" id="" class="btn btn-outline-secondary btn-sm" href="{% url 'dashboard' %}" role="button">Volver</a>{% endblock %}
 {% block tablas %}
 
-<section class="container-fluid ">
-    <div id="blog">
-        <h3>Nuestro blog</h3>
-        <ul>
-            <li class="nav-item dropdown">
-                <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">Filtrar por categoria</a>
-
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'blogCategory' 'TALLER' %}">Talleres</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="{% url 'blogCategory' 'VISITA' %}">Visitas</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="{% url 'blogCategory' 'EVENTO' %}">Eventos</a></li>
-                </ul>
-            </li>
-        </ul>
-
-    </div>
-    <div id="contenedorNoticias" class="contenido">
-
-
-        {% for notice in news %}
-        <!-- Cuerpo noticia -->
-        <div class="card cardNoticia">
-            <img src="{{ notice.img.url }}" class="card-img-top" alt="imagen de noticia">
-            <div class="card-body">
-                <h5 class="card-title">{{ notice.title }}</h5>
-                <p class="card-text">Subida el {{ notice.created }}</p>
-
-                <a type="button" class="btn btn-primary" href="{% url 'newsDetail' notice.id %}">Leer mas</a>
-            </div>
+<div class="table-responsive-xs">
+    <div class="dropdown open">
+        Filtrar por <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                    {% if actual.titulo %} {{actual.titulo}} {% else %} Noticias {% endif %}
+                </button>
+        <div class="dropdown-menu" aria-labelledby="triggerId">
+            
+            {% for news in noticias %}
+            <a class="dropdown-item" href="{% url 'filtrarComentarios' news.id %}">{{news.titulo}}</a>
+            {% comment %} <button class="dropdown-item" href="{% url 'listarComentarios' news.id %}">{{news.titulo}}</button> {% endcomment %}
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
+    <table class="table table-light">
+        <thead class="table-secondary">
+            <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Contenido</th>
+                <th scope="col">Autor</th>
+                <th scope="col"  class="text-center">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comment in comentarios %}
+            <tr>
+                <td>{{comment.fecha}}</td>
+                <td>{{comment.contenido}}</td>
+                <td>{{comment.autor}}</td>
+                <td  class="text-center"><a name="" id="" class="btn btn-danger btn-sm" href="{% url 'eliminarComentarioDash' id=comment.id newsid=actual.id%}" role="button"><i class="bi bi-x"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
-</section>
-
-{{form.as_p}}
+{% endblock %}

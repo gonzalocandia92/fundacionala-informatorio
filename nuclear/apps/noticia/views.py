@@ -1,7 +1,7 @@
 from django.views import generic
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.shortcuts import render, redirect, reverse, HttpResponse
+from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
 from django.contrib import messages
 from django.views.defaults import page_not_found
 from .models import *
@@ -16,14 +16,10 @@ from .forms import *
 
 # ----- vistas de posteos ----- #
 class CategoriaListView(ListView):
-    
     model = Noticia
     context_object_name = 'noticia'
     template_name = 'categoria/categoria.html'
-    
-    
     def get_context_data(self, *args, **kwargs):
-        
          categoria = Categoria.objects.get(nombre=self.kwargs.get('nombre'))
          id = categoria.id
          context = super(CategoriaListView, self).get_context_data(**kwargs)
@@ -48,29 +44,24 @@ class NoticiaDetailView(DetailView):
     """Detail post."""
     template_name = 'noticia/detalle.html'
     model = Noticia
-    
     context_object_name = 'noticia'
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
 
     def get_context_data(self, *args, **kwargs):
-         
          noticia = Noticia.objects.get(slug=self.kwargs.get('slug'))
          id = noticia.id
          context = super(NoticiaDetailView, self).get_context_data(**kwargs)
          context['noticia'] = Noticia.objects.get(id=id)
          context['comentarios'] = Comentario.objects.filter(noticia=id)
          context['category'] = Categoria.objects.all()
-         
          return context
       
     def get(self, request, *args, **kwargs):
         noticia = Noticia.objects.get(slug=self.kwargs.get('slug'))
-       
         form = CommentForm()
         comentarios = Comentario.objects.filter(noticia = noticia).order_by('-fecha')
         category = Categoria.objects.all()
-
         context = {
             'noticia': noticia,
             'form': form,
@@ -83,10 +74,8 @@ class NoticiaDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         noticia = Noticia.objects.get(slug=self.kwargs.get('slug'))
         id = noticia.id
-
         form = CommentForm(request.POST)
         comentarios = Comentario.objects.filter(noticia = id).order_by('-fecha')
-
         x = Persona.objects.get(email = request.session['email'])
 
         if form.is_valid():
@@ -366,6 +355,55 @@ def eliminarComentario(request, id):
         return redirect('inicio')
     else:
         return render(request, 'miscelaneo/error.html')
+
+def eliminarComentarioDash(request, id, newsid):
+    if validarUsr(request):
+        comentario = Comentario.objects.get(id=id)
+        comentario.delete()
+        return filtrarComentarios(request, newsid)
+    else:
+        return render(request, 'miscelaneo/error.html')
+
+def listarComentarios(request):
+    if validarUsr(request):
+        noticias = Noticia.objects.all()
+        return render(request, "comentarios/listar_comentarios.html", {'noticias': noticias})
+    else:
+        return render(request, 'miscelaneo/error.html')   
+    
+
+def filtrarComentarios(request, news_id):
+    if validarUsr(request):
+        if news_id == None:
+            news = Noticia.objects.first()
+        else:
+            news = get_object_or_404(Noticia, id=news_id)
+        noticias = Noticia.objects.all()
+        comentarios = Comentario.objects.filter(noticia = news).order_by('-fecha')
+        contexto = {
+            'noticias': noticias,
+            'comentarios': comentarios,
+            'actual': news,
+            }
+        return render(request, "comentarios/listar_comentarios.html", contexto)
+    else:
+        return render(request, 'miscelaneo/error.html')
+            
+            
+    
+    # def blogCategory(request, category):
+    # news = News.objects.filter(category=category)
+    # if session(request) != False:
+    #     return render(request, 'blog/blog.html',
+    #                             {'news':news,
+    #                             'session': session(request),
+    #                             'email': session(request)[0],
+    #                             'username': session(request)[1]
+    #                             })
+    # else:
+    #     return render(request, 'blog/blog.html',
+    #                             {'news':news,
+    #                             'session': session(request)})
     
 
 
