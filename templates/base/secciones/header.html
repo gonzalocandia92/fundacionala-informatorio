@@ -8,35 +8,41 @@
     <nav class="navbar navbar-expand fixed-top shadow p-3 mb-5 bg-body rounded">
         
       <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-           aria-expanded="false" aria-label="Toggle navigation"></button>
+           aria-expanded="false" aria-label="Toggle navigation"> </button>
       <div class="collapse navbar-collapse" id="collapsibleNavId">
 
            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                <li class="nav-item">
                    <a class="nav-link active" href=" {% url 'inicio' %}" aria-current="page"> <span class="text-dark">Inicio <span class="visually-hidden">(current)</span></a>
                </li>
-               <li class="nav-item">
-                   <a class="nav-link" href="{% url 'nosotros'%}"> <span class="text-dark"> Nosotros</a>
-               </li>
-               <li class="nav-item">
-                <a class="nav-link" href="{% url 'identidad'%}"> <span class="text-dark"> Identidad</a>
-               </li>
+               <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="{% url 'nosotros' %}"
+                     id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="text-dark">Actividades</a>
+                             <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                 <a class="dropdown-item" href="{% url 'centro' %}"> <span class="text-dark">Centro Educativo</a>
+                                 <a class="dropdown-item" href="{% url 'consultorias' %}"> <span class="text-dark"> Consultorias</a>
+                                 <a class="dropdown-item" href="{% url 'carpinteria' %}"><span class="text-dark">Carpinteria</a>
+                                 <a class="dropdown-item" href="{% url 'jardineria' %}"> <span class="text-dark"> Jardineria</a>
+                                 <a class="dropdown-item" href="{% url 'conservas' %}"><span class="text-dark">Conservas</a>
+                             </div>
+                </li> 
+               <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="{% url 'identidad' %}"
+                     id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="text-dark">Identidad</a>
+                             <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                 <a class="dropdown-item" href="{% url 'identidad' %}"> <span class="text-dark">Acerca de nosotros</a>
+                                 <a class="dropdown-item" href="{% url 'identidad' %}"> <span class="text-dark"> Misión</a>
+                                 <a class="dropdown-item" href="{% url 'identidad' %}"><span class="text-dark">Visión</a>
+                                 <a class="dropdown-item" href="{% url 'nosotros' %}"><span class="text-dark">Autoridades</a>
+                             </div>
+                </li> 
                <li class="nav-item">
                 <a class="nav-link" href="{% url 'contacto'%}"> <span class="text-dark"> Contacto</a>
                </li>
                <li class="nav-item">
                 <a class="nav-link" href="{% url 'donaciones'%}"> <span class="text-dark"> Donaciones</a>
                </li>
-               {% comment %} <li class="nav-item dropdown">
-                   <a class="nav-link dropdown-toggle" href="{% url 'nosotros' %}"
-                        id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="text-dark">Identidad</a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                    <a class="dropdown-item" href="{% url 'nosotros' %}"> <span class="text-dark">Acerca de nosotros</a>
-                                    <a class="dropdown-item" href="{% url 'mision' %}"> <span class="text-dark"> Misión</a>
-                                    <a class="dropdown-item" href="{% url 'vision' %}"><span class="text-dark">Visión</a>
-                                    <a class="dropdown-item" href="{% url 'galeria' %}"><span class="text-dark ">Galería</a>
-                                </div>
-               </li> {% endcomment %}
+               
            </ul>
            
           <style>
