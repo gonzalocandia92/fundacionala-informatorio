@@ -3,12 +3,11 @@
 {% block NavName %}Lista de comentarios {% endblock %} 
 {% block NavBtn %} <a name="" id="" class="btn btn-outline-secondary btn-sm" href="{% url 'dashboard' %}" role="button">Volver</a>{% endblock %}
 {% block tablas %}
-
-<div class="table-responsive-xs">
-    <div class="dropdown open">
-        Filtrar por <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
+<nav class="nav bg-success justify-content-center  ">
+  <div class="dropdown open">
+         <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
-                    {% if actual.titulo %} {{actual.titulo}} {% else %} Noticias {% endif %}
+                Filtrar por {% if actual.titulo %} {{actual.titulo}} {% else %} Noticias {% endif %}
                 </button>
         <div class="dropdown-menu" aria-labelledby="triggerId">
             
@@ -18,6 +17,9 @@
             {% endfor %}
         </div>
     </div>
+</nav>
+<div class="table-responsive-xs">
+    
     <table class="table table-light">
         <thead class="table-secondary">
             <tr>
