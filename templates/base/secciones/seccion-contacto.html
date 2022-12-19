@@ -46,8 +46,8 @@
             <div class="col-lg-4 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
                 
                 
-                <form method="POST">
-                    {% comment %} action="{% url 'enviarcontacto' %}" {% endcomment %}
+                <form method="POST" action="{% url 'enviarcontacto' %}">
+                    {% comment %}  {% endcomment %}
                     {% csrf_token %}
                     
                     

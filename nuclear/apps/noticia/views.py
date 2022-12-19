@@ -14,27 +14,48 @@ from .forms import *
 
 def enviarcontacto(request):
     if request.method == "POST":
-            name = request.POST.get('nombre', '')
-            email = request.POST.get('email', '')
-            subject = request.POST.get('subject', '')
-            message = request.POST.get('message', '')
-            
-            correo = EmailMessage(
-                'Mensaje de contacto recibido',
-                f'Mensaje enviado por {name} <{email}>:\n\nAsunto: {subject}\n\n{message}',
-                email,
-                ['7a27d80aeec547g@inbox.mailtrap.io'],
-                reply_to=[email],
-            )
-            
-            try:
-                correo.send()
-                messages.success(request, 'Se ha enviado tu correo.')
-                return redirect(reverse('inicio'))
-            except:
-                messages.success(request, 'Error.')
-                return render(request, 'base/index.html')
+        name = request.POST.get('nombre', '')
+        email = request.POST.get('email', '')
+        subject = request.POST.get('subject', '')
+        message = request.POST.get('message', '')
+        
+        correo = EmailMessage(
+            'Mensaje de contacto recibido',
+            f'Mensaje enviado por {name} <{email}>:\n\nAsunto: {subject}\n\nMensaje {message}',
+            email,
+            ['7a27d80aeec547g@inbox.mailtrap.io'],
+            reply_to=[email],
+        )
+        
+        try:
+            correo.send()
+            # mensajes que se envian a la página NO ES CORREO
+            titulo = 'Confirmación de contacto'
+            subtitulo = 'Contacto'
+            cuerpo = "Muchas gracias por contactarte con Fundación ALA'"
+            subcuerpo = 'Te responderemos pronto'
+            contexto = {
+                'titulo' : titulo,
+                'subtitulo' : subtitulo,
+                'cuerpo' : cuerpo,
+                'subcuerpo' : subcuerpo,
+            } 
+            return render(request, 'base/secciones/email_template.html', contexto)
+        except:
+            # mensajes que se envian a la página NO ES CORREO
+            titulo = 'Lo sentimos'
+            subtitulo = 'Contacto'
+            cuerpo = 'No pudimos procesar tu solicitud de contacto'
+            subcuerpo = 'Solicitamos que se acerque a nuestra institución'
 
+            contexto = {
+                'titulo' : titulo,
+                'subtitulo' : subtitulo,
+                'cuerpo' : cuerpo,
+                'subcuerpo' : subcuerpo,
+            } 
+            
+            return render(request, 'base/secciones/email_template.html', contexto)    
 
 # ----- vistas de posteos ----- #
 class CategoriaListView(ListView):
@@ -60,31 +81,6 @@ class NoticiaListView(ListView):
         context = super(NoticiaListView, self).get_context_data(**kwargs)
         context['now'] = timezone.now()
         return context
-    
-    def post(self, request, *args, **kwargs):
-        if request.method == "POST":
-            name = request.POST.get('nombre', '')
-            email = request.POST.get('email', '')
-            subject = request.POST.get('subject', '')
-            message = request.POST.get('message', '')
-            
-            correo = EmailMessage(
-                'Mensaje de contacto recibido',
-                f'Mensaje enviado por {name} <{email}>:\n\nAsunto: {subject}\n\nMensaje {message}',
-                email,
-                ['7a27d80aeec547g@inbox.mailtrap.io', 'gonzaloismael.cg@gmail.com'],
-                reply_to=[email],
-            )
-            
-            try:
-                correo.send()
-                messages.success(request, 'Se ha enviado tu correo.')
-                return redirect(reverse('inicio'))
-            except:
-                messages.success(request, 'Error.')
-                return render(request, 'base/index.html')
-            
-       
 
 class NoticiaDetailView(DetailView):
     """Detail post."""
