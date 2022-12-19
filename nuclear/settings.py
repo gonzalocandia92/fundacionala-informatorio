@@ -163,3 +163,5 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'gonzaloismael.cg@gmail.com'
 EMAIL_HOST_PASSWORD = 'itjpjiiylfcbxsre'
+
+# nuevo commit
