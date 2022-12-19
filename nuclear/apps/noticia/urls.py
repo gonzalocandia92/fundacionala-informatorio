@@ -21,7 +21,9 @@ urlpatterns = [
     path('jardineria', views.jardineria, name='jardineria'),
     path('conservas', views.conservas, name='conservas'),
     
+    # ---- Envio de correo gmail ---- #
     
+    path('enviarcontacto', views.enviarcontacto, name='enviarcontacto'),
     
     # ---- Urls Categorias ---- #
     path('dashboard/listarCategoria', views.listarCategoria, name = 'listarCategoria'),

@@ -44,7 +44,7 @@ class PersonaForm(forms.ModelForm):
     class Meta:
         model = Persona
         fields = ('username', 'nombreApellido', 'email', 'password', 'perfilImage', 'rol')
-        rol = forms.ModelMultipleChoiceField(queryset=Rol.objects.all())
+        # rol = forms.ModelMultipleChoiceField(queryset=Rol.objects.all())
         perfilImage = forms.ImageField()
     
     def __init__(self, *args, **kwargs):

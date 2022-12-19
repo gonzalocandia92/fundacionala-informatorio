@@ -4,14 +4,36 @@ from django.views.generic.detail import DetailView
 from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
 from django.contrib import messages
 from django.views.defaults import page_not_found
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.conf import settings
 from .models import *
-from .forms import *
+from .forms import * 
 
-    # noticia = Noticia.objects.get(slug=self.kwargs.get('slug'))
-    #          id = noticia.id
-    #          context = super(NoticiaDetailView, self).get_context_data(**kwargs)
-    #          context['noticia'] = Noticia.objects.get(id=id)
-    #          context['comentarios'] = Comentario.objects.filter(noticia=id)
+
+
+def enviarcontacto(request):
+    if request.method == "POST":
+            name = request.POST.get('nombre', '')
+            email = request.POST.get('email', '')
+            subject = request.POST.get('subject', '')
+            message = request.POST.get('message', '')
+            
+            correo = EmailMessage(
+                'Mensaje de contacto recibido',
+                f'Mensaje enviado por {name} <{email}>:\n\nAsunto: {subject}\n\n{message}',
+                email,
+                ['7a27d80aeec547g@inbox.mailtrap.io'],
+                reply_to=[email],
+            )
+            
+            try:
+                correo.send()
+                messages.success(request, 'Se ha enviado tu correo.')
+                return redirect(reverse('inicio'))
+            except:
+                messages.success(request, 'Error.')
+                return render(request, 'base/index.html')
 
 
 # ----- vistas de posteos ----- #
@@ -38,6 +60,30 @@ class NoticiaListView(ListView):
         context = super(NoticiaListView, self).get_context_data(**kwargs)
         context['now'] = timezone.now()
         return context
+    
+    def post(self, request, *args, **kwargs):
+        if request.method == "POST":
+            name = request.POST.get('nombre', '')
+            email = request.POST.get('email', '')
+            subject = request.POST.get('subject', '')
+            message = request.POST.get('message', '')
+            
+            correo = EmailMessage(
+                'Mensaje de contacto recibido',
+                f'Mensaje enviado por {name} <{email}>:\n\nAsunto: {subject}\n\nMensaje {message}',
+                email,
+                ['7a27d80aeec547g@inbox.mailtrap.io', 'gonzaloismael.cg@gmail.com'],
+                reply_to=[email],
+            )
+            
+            try:
+                correo.send()
+                messages.success(request, 'Se ha enviado tu correo.')
+                return redirect(reverse('inicio'))
+            except:
+                messages.success(request, 'Error.')
+                return render(request, 'base/index.html')
+            
        
 
 class NoticiaDetailView(DetailView):
@@ -135,7 +181,7 @@ def login(request):
             detalleUsuario=Persona.objects.get(email=request.POST['email'], password=request.POST['password'])
             print("Usuario=", detalleUsuario)
             request.session['email']=detalleUsuario.email
-            if detalleUsuario.rol.id == 2:
+            if detalleUsuario.rol == 2:
                 return render(request, 'base/dashboard.html')
             else:
                 return redirect('inicio')
@@ -177,7 +223,7 @@ def validarUsr(request):
         if request.session['email']:
             x = Persona.objects.get(email = request.session['email'])
             print(x.nombreApellido)
-            return x.rol.id == 2
+            return x.rol == 2
     except:
         return False
 # -------------------------------- #

@@ -6,16 +6,22 @@ from ckeditor.fields import RichTextField
 
 # --- Modelo Roles --- #
 
-class Rol(models.Model):
-    rol = models.CharField(max_length=35, verbose_name='Nombre', null=False)
+# class Rol(models.Model):
+#     rol = models.CharField(max_length=35, verbose_name='Nombre', null=False)
     
-    def delete(self, using = None, keep_parents = False):
-        super().delete()
+#     def delete(self, using = None, keep_parents = False):
+#         super().delete()
     
-    def __str__(self):
-        return self.rol
+#     def __str__(self):
+#         return self.rol
 
 # --- Modelo Persona --- #
+roles = [
+    [0, "Personal"],
+    [1, "Visitante"],
+    [2, "Admin"],
+    [3, "Autor"]
+]
 
 class Persona(models.Model):
     username = models.CharField(max_length=35, verbose_name="Nombre de usuario", null=False, unique=True)
@@ -23,7 +29,7 @@ class Persona(models.Model):
     email = models.CharField(max_length=50, verbose_name="Correo electrónico", null=False, unique=True)
     password = models.CharField(max_length=20, verbose_name="Contraseña", null=False)
     perfilImage = models.ImageField(verbose_name='Foto de perfil', blank=True, null=True, upload_to='usuarios/', default='usuarios/default.png')
-    rol = models.ForeignKey(Rol, verbose_name='Rol', on_delete=models.SET_NULL, null=True, default=1)
+    rol = models.IntegerField(choices=roles, default=1)
     
     def __str__(self):
         return self.username
@@ -32,6 +38,8 @@ class Persona(models.Model):
         self.perfilImage.delete(self.perfilImage.name)
         super().delete()
 
+    class Meta:
+        ordering = ('-rol',)
 
 
 # --- Modelo Categoría --- #

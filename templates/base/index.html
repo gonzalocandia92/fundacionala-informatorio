@@ -5,6 +5,8 @@
 
 {% block contenido %}
 
+                    
+
 <!--========================================================== -->
                         <!-- SLIDER DE IMAGENES-->
 <!--========================================================== -->
@@ -89,7 +91,13 @@
       <span class="visually-hidden">siguiente</span> {% endcomment %}
       </button>
   </div>
-  
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success" role="alert">
+                                <h1><b>{{message}}</b></h1>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
 <!--========================================================== -->
                   <!-- INTRODUCCION DE SERVICIOS-->
 <!--========================================================== -->
