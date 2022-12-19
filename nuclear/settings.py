@@ -96,7 +96,7 @@ DATABASES = {
         'USER': 'root12',
         'PASSWORD': 'root12',
         'HOST': 'localhost',
-        'PORT': '3307'
+        'PORT': '3306'
     }
 }
 
@@ -152,7 +152,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # configuración de gmail
 
-EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_HOST_USER = '7a27d80aeec547'
-EMAIL_HOST_PASSWORD = '7b5f839722cf58'
-EMAIL_PORT = '2525'
+# EMAIL_HOST = 'smtp.mailtrap.io'
+# EMAIL_HOST_USER = '7a27d80aeec547'
+# EMAIL_HOST_PASSWORD = '7b5f839722cf58'
+# EMAIL_PORT = '2525'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'gonzaloismael.cg@gmail.com'
+EMAIL_HOST_PASSWORD = 'itjpjiiylfcbxsre'

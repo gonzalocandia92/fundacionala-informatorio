@@ -23,7 +23,7 @@ def enviarcontacto(request):
             'Mensaje de contacto recibido',
             f'Mensaje enviado por {name} <{email}>:\n\nAsunto: {subject}\n\nMensaje {message}',
             email,
-            ['7a27d80aeec547g@inbox.mailtrap.io'],
+            ['gonzaloismael.cg@gmail.com'],
             reply_to=[email],
         )
         
