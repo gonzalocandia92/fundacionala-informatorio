@@ -63,17 +63,15 @@
        
            
           {% if request.session.email %}
-          
                <ul class="nav navbar-nav">
+                    {% if tipouser %}
+                    <li class="nav-item">
+                    <a name="" id="" class="btn btn-outline-dark btn-sm" href="{% url 'dashboard' %}" role="button">Panel de control</a>&nbsp&nbsp
+                    </li>
+                    {% endif %}    
                     <li class="nav-item">
                         <a class="btn btn-outline-danger btn-sm" href="{% url 'logout' %} " aria-current="page"> Cerrar sesión </a>
                     </li>
-                   
-                   {% comment %} {% if request.session.rol == 2%}
-                   <li class="nav-item">
-                    <a name="" id="" class="btn btn-outline-light rounded-pill" href="{% url 'dashboard' %}" role="button"  >Panel de control</a>
-                   </li>
-                   {% endif %} {% endcomment %}
                </ul>
           {% else %}
           <ul class="nav navbar-nav">

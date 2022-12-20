@@ -7,6 +7,7 @@ from django.views.defaults import page_not_found
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
+from django.utils.crypto import get_random_string
 from .models import *
 from .forms import * 
 
@@ -54,7 +55,6 @@ def enviarcontacto(request):
                 'cuerpo' : cuerpo,
                 'subcuerpo' : subcuerpo,
             } 
-            
             return render(request, 'base/secciones/email_template.html', contexto)    
 
 # ----- vistas de posteos ----- #
@@ -166,9 +166,6 @@ def jardineria(request):
 def conservas(request):
     return render(request, 'miscelaneo/conservas.html')
 
-
-
-
 # ----- vistas de Sesión ----- #
 
 def login(request):
@@ -212,7 +209,40 @@ def register(request):
             return redirect('inicio')        
     else:
         return render(request, 'sesion/register.html')
-    
+
+def recuperarpassword(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        email_exists = (Persona.objects.filter(email = email))
+        if email_exists:
+            newpass = get_random_string(length=8)
+            
+            correo = EmailMessage(
+                "Solicitud de cambio de contraseña | Fundación ALA'",
+                f'Su nueva contraseña para ingresar al sitio es {newpass}.\n\n Podrá cambiarla luego desde su perfil.',
+                email,
+                ['gonzaloismael.cg@gmail.com', email],
+                reply_to=[email],
+            )
+            
+            try:
+                messages.success(request, f'=> "{newpass}" <= Revise su casilla de email, le enviaremos instrucciones para recuperar su cuenta')        
+                correo.send()
+                
+                Persona.objects.filter(email = email).update(password=newpass)
+                
+                print(newpass)
+                return redirect('/recuperarpassword')
+                
+            except:
+                messages.success(request, f'No hemos podido enviarle el correo de recuperación, comuniquese con el administrador del sitio')        
+                return redirect('/recuperarpassword')    
+        else:
+            messages.success(request, 'El correo electrónico ingresado no pertenece a ninguna cuenta registrada')
+            return redirect('/recuperarpassword')
+    else:
+        return render(request, 'cambiarContraseña/restablecer_contraseña.html')
+            
 # -------------------------------- #
 def validarUsr(request):
     try:

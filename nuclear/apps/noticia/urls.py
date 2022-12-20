@@ -22,7 +22,7 @@ urlpatterns = [
     path('conservas', views.conservas, name='conservas'),
     
     # ---- Envio de correo gmail ---- #
-    
+    path('recuperarpassword', views.recuperarpassword, name='recuperarpassword'),
     path('enviarcontacto', views.enviarcontacto, name='enviarcontacto'),
     
     # ---- Urls Categorias ---- #

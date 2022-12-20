@@ -39,9 +39,9 @@
 <body>
 
 {% if request.session.Email %}
-{{request.session.Email}} &nbsp;&nbsp; <a href="{% url 'cerrarSesion' %}">Cerrar Sesion</a>
 
-Ya inició sesión
+<br/><br/><br/>
+{% include 'miscelaneo/error.html'%}
 
 {% else %}
 

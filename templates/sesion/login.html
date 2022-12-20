@@ -40,15 +40,15 @@
 
 
 {% if request.session.Email %}
-{{request.session.Email}} &nbsp;&nbsp; <a href="{% url 'cerrarSesion' %}">Cerrar Sesion</a>
 
-Ya inició sesión
+<br/><br/><br/>
+{% include 'miscelaneo/error.html'%}
 
 {% else %}
 
 
 <section class="h-100 gradient-form" style="background: radial-gradient(circle, rgba(241,131,179,1) 0%, rgba(210,197,229,1) 50%, rgba(103,132,165,1) 100%);">
-    <div class="container py-5 h-100">
+    
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-xl-10">
           <div class="card rounded-3 text-black">
@@ -80,9 +80,16 @@ Ya inició sesión
                       <button class="btn btn-dark btn-block fa-lg gradient-custom-2 mb-3" type="submit"><span class="text-dark"> Iniciar Sesión</button>&nbsp;&nbsp;  
                     </div> -->
                     <div class="text-center text-black pt-1 mb-5 pb-1">
-                      <button class="btn btn-outline-info" type="submit"> Iniciar Sesión </button>&nbsp;&nbsp;  
+                      <button class="btn btn-outline-info" type="submit"> Iniciar Sesión </button>
                     </div>
-                   
+                    <div class="text-center text-black pt-1 mb-5 pb-1">
+                      ¿Olvidaste tu contraseña? 
+                      <div class="text-center">
+                        <br/>
+                        <a name="recuperarpassword" id="recuperarpassword" class="btn btn-danger btn-sm" href="{% url 'recuperarpassword' %}" role="button">Recuperar contraseña</a>
+                      </div>
+                    </div>
+                    
                     {% if messages %}
                     {% for msg in messages %}
                     <div class="text-center pt-1 mb-5 pb-1">
@@ -127,7 +134,7 @@ Ya inició sesión
           </div>
         </div>
       </div>
-    </div>
+    
   </section>
 
 
