@@ -7,7 +7,7 @@
 {% block NavName %}Crear noticia {% endblock %} 
 {% block NavBtn %} <a name="" id="" class="btn btn-outline-danger btn-sm" href="{% url 'listarNoticias' %}" role="button">Cancelar</a>{% endblock %}
 {% block tablas %}
-    
+{% if tipouser %}    
         <div class="card-body" style="background:#E8E8EE;">
             
             <form method="POST" enctype="multipart/form-data">
@@ -67,5 +67,9 @@
                 <input class="btn btn-outline-primary btn-xs" type="submit" value="Guardar">
             </form>
         </div>
-    
+        {% else %}
+
+        {% include 'miscelaneo/error.html'%}
+        
+        {% endif %}    
 {% endblock %} 

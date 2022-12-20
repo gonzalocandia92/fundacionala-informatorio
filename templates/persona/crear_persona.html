@@ -3,6 +3,7 @@
 {% block NavName %}Crear persona {% endblock %} 
 {% block NavBtn %} <a name="" id="" class="btn btn-outline-danger btn-sm" href="{% url 'listaPersonas' %}" role="button">Volver</a>{% endblock %}
 {% block tablas %}
+{% if tipouser %}    
     <section>
     <div class="card">
         <div class="card-body" style="background:#E8E8EE;">
@@ -18,4 +19,9 @@
         </div>
     </div>
     </section>
+    {% else %}
+
+    {% include 'miscelaneo/error.html'%}
+    
+    {% endif %}  
 {% endblock %} 

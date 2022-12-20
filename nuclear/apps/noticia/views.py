@@ -119,16 +119,19 @@ class NoticiaDetailView(DetailView):
         form = CommentForm(request.POST)
         comentarios = Comentario.objects.filter(noticia = id).order_by('-fecha')
         x = Persona.objects.get(email = request.session['email'])
+        category = Categoria.objects.all()
 
         if form.is_valid():
             new_comment = form.save(commit=False)
             new_comment.autor = x
             new_comment.noticia = noticia
+            messages.success(request, "comentario agregado correctamente")
             new_comment.save()
 
         context = {
             'noticia': noticia,
             'form': form,
+            'category': category,
             'comentarios': comentarios,
         }
         return render(request, 'noticia/detalle.html', context) 
@@ -258,7 +261,8 @@ def recuperarpassword(request):
     else:
         return render(request, 'cambiarContraseña/restablecer_contraseña.html')
             
-# -------------------------------- #
+# ---- Validación usuario en sesión tipo admin ---- #
+
 def validarUsr(request):
     try:
         if request.session['email']:
@@ -267,7 +271,10 @@ def validarUsr(request):
             return x.rol == 2
     except:
         return False
-# -------------------------------- #
+    
+# ============================================================================================ #
+# ----------------------------------    VISTAS DASHBOARD    ----------------------------------
+# ============================================================================================ #
 
 
 def dashboard(request):

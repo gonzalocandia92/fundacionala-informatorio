@@ -3,6 +3,7 @@
 {% block NavName %}Crear categoria {% endblock %} 
 {% block NavBtn %} <a name="" id="" class="btn btn-outline-danger btn-sm" href="{% url 'listarCategoria' %}" role="button">Volver</a>{% endblock %}
 {% block tablas %}
+{% if tipouser %}  
     <section>
     <div class="card">
         <div class="card-body" style="background:#E8E8EE;">
@@ -22,4 +23,9 @@
         </div>
     </div>
     </section>
+    {% else %}
+
+    {% include 'miscelaneo/error.html'%}
+    
+    {% endif %}      
 {% endblock %} 
