@@ -154,6 +154,9 @@ def contacto(request):
 def donaciones(request):
     return render(request, 'miscelaneo/donaciones.html')
 
+def voluntariado(request):
+    return render(request, 'miscelaneo/voluntariado.html')
+
 def centro(request):
     return render(request, 'miscelaneo/centro.html')
 
