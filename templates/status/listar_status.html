@@ -33,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for s in status %}
+            {% for s in entity %}
             <tr>
                 <td>{{s.status}}</td>
                 <td  class="text-center"><a name="" id="" class="btn btn-info btn-sm" href="{% url 'editarStatus' s.id %}" role="button"><i class="bi bi-check"></i></a></td>
@@ -42,6 +42,9 @@
             {% endfor %}
         </tbody>
     </table>
+    <div>
+        {% include 'base/secciones/paginator.html' %}
+    </div>
 </div>
 
 {% endblock %}

@@ -39,7 +39,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for noticia in noticias %}
+            {% for noticia in entity %}
             <tr>
                 <td>{{noticia.titulo}}</td>
                 <td>{{noticia.fechaPublicacion}}</td>
@@ -52,6 +52,9 @@
             {% endfor %}
         </tbody>
     </table>
+    <div>
+        {% include 'base/secciones/paginator.html' %}
+    </div>
 </div>
 
 {% endblock %}
