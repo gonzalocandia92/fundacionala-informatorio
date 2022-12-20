@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{STATIC_URL}}/static/css/main.css">
 
+    <!-- SweetAlert2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
     @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
@@ -252,7 +254,17 @@
                     </div>
                 </nav>
 
-            
+                {% if messages %}
+                {% for msg in messages %}
+                  <script>
+                    Swal.fire({
+                      "title": "Felicitaciones",
+                      "text": "{{msg}}",
+                      "icon": "success"
+                    })
+                  </script>   
+                {% endfor %}
+                {% endif %}
                 
                 {% block tablas %}
 

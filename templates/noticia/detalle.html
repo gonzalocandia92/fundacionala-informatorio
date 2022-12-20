@@ -79,6 +79,28 @@
                 {% endif %}
 
 
+                <script>
+                    function eliminarComentario(id, newsid) { 
+                        Swal.fire({
+                            "title" : "¿Estas seguro?",
+                            "text" : "Esta acción no se puede deshacer",
+                            "icon" : "question",
+                            "showCancelButton" : true,
+                            "cancelButtonText" : "No, cancelar",
+                            "confirmButtonText" : "Si, elimnar",
+                            "reverseButtons" : true,
+                            "confirmButtonColor" : "#dc3545"
+                        })
+                        .then(function(result) {
+                            if(result.isConfirmed) {
+                                window.location.href = "/eliminarComentario/"+id+"/"+newsid
+                            }
+                        })
+                    }
+                </script>
+
+
+
                 {% for comments in comentarios %}
                 <div class="card"  style="background: rgba(230,255,230,.9)">
                     <div class="card-body">
@@ -103,8 +125,8 @@
                             </div>  
                         </div>
                        
-                                {% if admin %}
-                                <a name="" id="" class="btn btn-danger btn-sm" href="{% url 'eliminarComentario' comments.id %}" role="button">Eliminar</a>
+                                {% if tipouser %}
+                                <a onclick="eliminarComentario({{ comments.id }}, {{ noticia.id }})"name="" id="" class="btn btn-danger btn-sm text-center" href="#" role="button">Eliminar</a>
                                 {% endif %}
                     </div>
                 </div>

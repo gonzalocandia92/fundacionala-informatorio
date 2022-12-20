@@ -44,7 +44,7 @@ urlpatterns = [
     path('dashboard/eliminarStatus/<int:id>', views.eliminarStatus, name='eliminarStatus'),
     path('dashboard/editarStatus/<int:id>', views.editarStatus, name='editarStatus'),
     # ---- Urls Comentarios ---- #
-    path('eliminarComentario/<int:id>', views.eliminarComentario, name='eliminarComentario'),
+    path('eliminarComentario/<int:id>/<int:newsid>', views.eliminarComentario, name='eliminarComentario'),
     path('dashboard/eliminarComentarioDash/<int:id>/<int:newsid>', views.eliminarComentarioDash, name='eliminarComentarioDash'),
     path('dashboard/listarComentarios', views.listarComentarios, name='listarComentarios'),
     path('dashboard/listarComentarios/<int:news_id>', views.filtrarComentarios, name='filtrarComentarios'),

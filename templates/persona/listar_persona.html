@@ -4,6 +4,27 @@
 {% block NavBtn %} <a name="" id="" class="btn btn-outline-secondary btn-sm" href="{% url 'crear-persona' %}" role="button">Agregar persona</a>{% endblock %}
 {% block tablas %}
 
+<script>
+    function eliminarPersona(id) { 
+        Swal.fire({
+            "title" : "¿Estas seguro?",
+            "text" : "Esta acción no se puede deshacer",
+            "icon" : "question",
+            "showCancelButton" : true,
+            "cancelButtonText" : "No, cancelar",
+            "confirmButtonText" : "Si, elimnar",
+            "reverseButtons" : true,
+            "confirmButtonColor" : "#dc3545"
+        })
+        .then(function(result) {
+            if(result.isConfirmed) {
+                window.location.href = "/dashboard/eliminarPersona/"+id
+            }
+        })
+    }
+</script>
+
+
 <div class="table-responsive-xs">
     <table class="table table-light">
         <thead class="table-secondary">
@@ -24,7 +45,7 @@
                 <td>{{persona.email}}</td>
                 <td>{{persona.get_rol_display}}</td>
                 <td  class="text-center"><a name="" id="" class="btn btn-info btn-sm" href="{% url 'editarPersona' persona.id %}" role="button"><i class="bi bi-check"></i></a></td>
-                <td  class="text-center">    <a name="" id="" class="btn btn-danger btn-sm" href="{% url 'eliminarPersona' persona.id %}" role="button"><i class="bi bi-x"></i></a></td>
+                <td  class="text-center">    <a onclick="eliminarPersona({{ persona.id }})"name="" id="" class="btn btn-danger btn-sm" href="#" role="button"><i class="bi bi-x"></i></a></td>
             </tr>
             {% endfor %}
         </tbody>

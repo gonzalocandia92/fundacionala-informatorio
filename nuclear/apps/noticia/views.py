@@ -63,7 +63,7 @@ class CategoriaListView(ListView):
     context_object_name = 'noticia'
     template_name = 'categoria/categoria.html'
     def get_context_data(self, *args, **kwargs):
-         categoria = Categoria.objects.get(nombre=self.kwargs.get('nombre'))
+         categoria = get_object_or_404(Categoria, nombre=self.kwargs.get('nombre'))
          id = categoria.id
          context = super(CategoriaListView, self).get_context_data(**kwargs)
          context['noticia'] = Noticia.objects.filter(categoria=id)
@@ -90,17 +90,17 @@ class NoticiaDetailView(DetailView):
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
 
-    def get_context_data(self, *args, **kwargs):
-         noticia = Noticia.objects.get(slug=self.kwargs.get('slug'))
+    def get_context_data(self, **kwargs):
+         noticia =  get_object_or_404(Noticia, slug=self.kwargs.get('slug'))
          id = noticia.id
          context = super(NoticiaDetailView, self).get_context_data(**kwargs)
-         context['noticia'] = Noticia.objects.get(id=id)
+         context['noticia'] = get_object_or_404(Noticia, id=id)
          context['comentarios'] = Comentario.objects.filter(noticia=id)
          context['category'] = Categoria.objects.all()
          return context
       
     def get(self, request, *args, **kwargs):
-        noticia = Noticia.objects.get(slug=self.kwargs.get('slug'))
+        noticia = get_object_or_404(Noticia, slug=self.kwargs.get('slug'))
         form = CommentForm()
         comentarios = Comentario.objects.filter(noticia = noticia).order_by('-fecha')
         category = Categoria.objects.all()
@@ -108,19 +108,18 @@ class NoticiaDetailView(DetailView):
             'noticia': noticia,
             'form': form,
             'comentarios': comentarios,
-            'category': category,
-            'admin': validarUsr(request)
+            'category': category
         }
         return render(request, 'noticia/detalle.html', context) 
 
     def post(self, request, *args, **kwargs):
-        noticia = Noticia.objects.get(slug=self.kwargs.get('slug'))
+        noticia = get_object_or_404(Noticia, slug=self.kwargs.get('slug'))
         id = noticia.id
         form = CommentForm(request.POST)
         comentarios = Comentario.objects.filter(noticia = id).order_by('-fecha')
-        x = Persona.objects.get(email = request.session['email'])
+        x = get_object_or_404(Persona, email = request.session['email'])
         category = Categoria.objects.all()
-
+    
         if form.is_valid():
             new_comment = form.save(commit=False)
             new_comment.autor = x
@@ -224,6 +223,8 @@ def register(request):
             return redirect('/register')
         else:
             Persona(username=username, email=email, password=password, nombreApellido=nombreApellido).save()
+            request.session['email']=email
+            messages.success(request, 'Te has registrado con éxito')
             return redirect('inicio')        
     else:
         return render(request, 'sesion/register.html')
@@ -296,14 +297,29 @@ class CrearCategoria(generic.CreateView):
     model = Categoria
     template_name = 'categoria/crear_categoria.html'
     form_class = CategoriaForm
-
+    
     def get_success_url(self):
         return reverse('listarCategoria')
+    
+    def post(self, request, *args, **kwargs):
+        form = CategoriaForm(request.POST)
+        
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            messages.success(request, 'Categoria creada con éxito')
+            new_comment.save()
+            categorias = Categoria.objects.all()
+            return render(request, 'categoria/listar_categoria.html', {'categorias': categorias})
+        else:
+            return redirect('crear-categoria')
+    
+    
 
 def eliminarCategoria(request, id):
     if validarUsr(request):
         categoria = Categoria.objects.get(id=id)
         categoria.delete()
+        messages.success(request, 'Eliminado correctamente')
         return redirect('listarCategoria')
     else:
         return render(request, 'miscelaneo/error.html')
@@ -314,6 +330,7 @@ def editarCategoria(request, id):
         form = CategoriaForm(request.POST or None, request.FILES or None, instance=categoria)
         if form.is_valid() and request.POST:
             form.save()
+            messages.success(request, 'Categoría modificada con éxito')
             return redirect('listarCategoria')
         return render(request, "categoria/modificar_categoria.html", {'form': form})
     else:
@@ -328,8 +345,6 @@ def listarNoticias(request):
     else:
         return render(request, 'miscelaneo/error.html')
 
-
-
 class CrearNoticia(generic.CreateView):
     model = Noticia
     template_name = 'noticia/crear_noticia.html'
@@ -337,6 +352,18 @@ class CrearNoticia(generic.CreateView):
 
     def get_success_url(self):
         return reverse('listarNoticias')
+    
+    def post(self, request, *args, **kwargs):
+        form = NoticiaForm(request.POST)
+        
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            messages.success(request, 'Noticia creada con éxito')
+            new_comment.save()
+            noticias = Noticia.objects.all().order_by('-fechaPublicacion')
+            return render(request, 'noticia/listar_noticias.html', {'noticias': noticias})
+        else:
+            return redirect('listarNoticias')
 
 def eliminarNoticia(request, id):
     if validarUsr(request):
@@ -352,6 +379,7 @@ def editarNoticia(request, id):
         form = NoticiaForm(request.POST or None, request.FILES or None, instance=noticia)
         if form.is_valid() and request.POST:
             form.save()
+            messages.success(request, 'Noticia modificada con éxito')
             return redirect('listarNoticias')
         return render(request, "noticia/modificar_noticia.html", {'form': form})
     else:
@@ -373,6 +401,18 @@ class CrearStatus(generic.CreateView):
 
     def get_success_url(self):
         return reverse('listarStatus')
+    
+    def post(self, request, *args, **kwargs):
+        form = StatusForm(request.POST)
+        
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            messages.success(request, 'Estado creado con éxito')
+            new_comment.save()
+            status = Status.objects.all()
+            return render(request, 'status/listar_status.html', {'status': status})
+        else:
+            return redirect('listarNoticias')
 
 def eliminarStatus(request, id):
     if validarUsr(request):
@@ -388,6 +428,7 @@ def editarStatus(request, id):
         form = StatusForm(request.POST or None, request.FILES or None, instance=status)
         if form.is_valid() and request.POST:
             form.save()
+            messages.success(request, 'Estado modificado con éxito')
             return redirect('listarStatus')
         return render(request, "status/modificar_status.html", {'form': form})
     else:
@@ -409,6 +450,18 @@ class CrearPersona(generic.CreateView):
 
     def get_success_url(self):
         return reverse('listaPersonas')
+    
+    def post(self, request, *args, **kwargs):
+        form = PersonaForm(request.POST)
+        
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            messages.success(request, 'Persona creada con éxito')
+            new_comment.save()
+            personas = Persona.objects.all()
+            return render(request, 'persona/listar_persona.html', {'personas': personas})
+        else:
+            return redirect('listarNoticias')
   
 def eliminarPersona(request, id):
     if validarUsr(request):
@@ -424,6 +477,7 @@ def editarPersona(request, id):
         form = PersonaForm(request.POST or None, request.FILES or None, instance=persona)
         if form.is_valid() and request.POST:
             form.save()
+            messages.success(request, 'Persona modificada con éxito')
             return redirect('listaPersonas')
         return render(request, "persona/modificar_persona.html", {'form': form})
     else:
@@ -442,11 +496,14 @@ def handler500(request, *args, **argv):
 
 # ----- Comentarios ----- #
 
-def eliminarComentario(request, id):
+def eliminarComentario(request, id, newsid):
     if validarUsr(request):
+        noticia = get_object_or_404(Noticia, id=newsid)
+        slug = noticia.slug
         comentario = Comentario.objects.get(id=id)
         comentario.delete()
-        return redirect('inicio')
+        messages.success(request, 'Comentario eliminado con éxito')
+        return redirect(f'/{slug}')
     else:
         return render(request, 'miscelaneo/error.html')
 
@@ -465,7 +522,6 @@ def listarComentarios(request):
     else:
         return render(request, 'miscelaneo/error.html')   
     
-
 def filtrarComentarios(request, news_id):
     if validarUsr(request):
         if news_id == None:
@@ -482,22 +538,5 @@ def filtrarComentarios(request, news_id):
         return render(request, "comentarios/listar_comentarios.html", contexto)
     else:
         return render(request, 'miscelaneo/error.html')
-            
-            
-    
-    # def blogCategory(request, category):
-    # news = News.objects.filter(category=category)
-    # if session(request) != False:
-    #     return render(request, 'blog/blog.html',
-    #                             {'news':news,
-    #                             'session': session(request),
-    #                             'email': session(request)[0],
-    #                             'username': session(request)[1]
-    #                             })
-    # else:
-    #     return render(request, 'blog/blog.html',
-    #                             {'news':news,
-    #                             'session': session(request)})
-    
 
 

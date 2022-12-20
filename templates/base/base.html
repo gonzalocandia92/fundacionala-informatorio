@@ -14,18 +14,7 @@
     <!-- SweetAlert2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-                {% if messages %}
-                    {% for msg in messages %}
-                      <script>
-                        Swal.fire({
-                          "title": "Felicitaciones",
-                          "text": "{{msg}}",
-                          "icon": "success"
-                        })
-                      </script>    
-                    
-                    {% endfor %}
-                {% endif %}
+
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -64,7 +53,19 @@
     <!--========================================================== -->
                             <!-- CUERPO DE PÁGINA-->
     <!--========================================================== -->
-
+    
+    {% if messages %}
+    {% for msg in messages %}
+      <script>
+        Swal.fire({
+          "title": "Felicitaciones",
+          "text": "{{msg}}",
+          "icon": "success"
+        })
+      </script>    
+    
+    {% endfor %}
+{% endif %}
                     
     
     {% block contenido %}
