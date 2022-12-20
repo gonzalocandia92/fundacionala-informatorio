@@ -1,0 +1,47 @@
+{% extends 'miscelaneo/base.html '%}
+{% load static %}
+
+{% block tituloMiscelaneo %} Voluntariado {% endblock %} 
+{% block retituloMiscelaneo %} Voluntariado {% endblock %} 
+
+{% block miscelaneoContenido %}
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeIn" data-wow-delay="0.3">
+            <img src="{% static 'img/ALA/loguin.png'%}" height="100">  <br/>
+            <br/><h3 class="text-success">Fundación ALA´</h3>
+            <h5 class="section-title bg-white text-center text-primary px-3"> <em> Significa semilla en idioma Qom</em></h5>
+            <p class="p-3  fs-4"><span class="text-dark">El voluntario debe hacer un mínimo aporte (económico o en servicio) para ser parte de la
+                fundación. Como requisito solo se necesita  ser mayor de edad. En caso de estar interesado de formar parte de nuestra comunidad y aportar al crecimiento de nuestra comunidad, contactate con nosotros via mail o por
+                alguna de nuestras redes(Facebook o Instagram), como asi también al whatsapp.
+            </p></h4>
+        </div>
+      
+    </div>
+</div>
+<div class="container align-items-center justify-content-top text-center">
+</div>
+
+
+<div class="media position-relative " data-wow-delay="0.7s">
+    <div class="service-item text-center pt-1">
+        <div class="p-4">
+            <i class="fa fa-3x fa-phone text-primary mb-4"></i>
+            <h5 class="mb-3">Contacto</h5>
+            <a href="{% url 'contacto' %}" class="stretched-link text-dark"><p>Para comunicarte con notoros, Haz click aqui.</p></a>
+            
+        </div>
+    </div>
+</div> 
+
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+{% endblock %}
