@@ -22,7 +22,7 @@
                 <td>{{persona.username}}</td>
                 <td>{{persona.nombreApellido}}</td>
                 <td>{{persona.email}}</td>
-                <td>{{persona.rol}}</td>
+                <td>{{persona.get_rol_display}}</td>
                 <td  class="text-center"><a name="" id="" class="btn btn-info btn-sm" href="{% url 'editarPersona' persona.id %}" role="button"><i class="bi bi-check"></i></a></td>
                 <td  class="text-center">    <a name="" id="" class="btn btn-danger btn-sm" href="{% url 'eliminarPersona' persona.id %}" role="button"><i class="bi bi-x"></i></a></td>
             </tr>

@@ -166,6 +166,21 @@ def jardineria(request):
 def conservas(request):
     return render(request, 'miscelaneo/conservas.html')
 
+def perfil(request):
+    user = get_object_or_404(Persona, email = request.session['email'])
+    return render(request, 'base/secciones/perfil.html', {'user':user})
+
+def editarperfil(request):
+    try:
+        user = get_object_or_404(Persona, email = request.session['email'])
+        form = PerfilForm(request.POST or None, request.FILES or None, instance=user)
+        if form.is_valid() and request.POST:
+            form.save()
+            return redirect('perfil')
+        return render(request, "base/secciones/editarperfil.html", {'form': form})
+    except:
+        return render(request, 'miscelaneo/error.html')
+
 # ----- vistas de Sesión ----- #
 
 def login(request):

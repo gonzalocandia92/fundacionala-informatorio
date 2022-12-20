@@ -54,6 +54,21 @@ class PersonaForm(forms.ModelForm):
                 'class': 'form-control'
         })
             
+            
+class PerfilForm(forms.ModelForm):   
+    class Meta:
+        model = Persona
+        fields = ('username', 'nombreApellido', 'email', 'password', 'perfilImage')
+        # rol = forms.ModelMultipleChoiceField(queryset=Rol.objects.all())
+        perfilImage = forms.ImageField()
+    
+    def __init__(self, *args, **kwargs):
+        super(PerfilForm, self).__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control'
+        })
+            
 class CommentForm(forms.ModelForm):   
     class Meta:
         model = Comentario

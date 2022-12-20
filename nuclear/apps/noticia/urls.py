@@ -20,8 +20,10 @@ urlpatterns = [
     path('carpinteria', views.carpinteria, name='carpinteria'),
     path('jardineria', views.jardineria, name='jardineria'),
     path('conservas', views.conservas, name='conservas'),
+    path('perfil', views.perfil, name='perfil'),
+    path('editarperfil', views.editarperfil, name='editarperfil'),
     
-    # ---- Envio de correo gmail ---- #
+    # ---- Envio de correo ---- #
     path('recuperarpassword', views.recuperarpassword, name='recuperarpassword'),
     path('enviarcontacto', views.enviarcontacto, name='enviarcontacto'),
     

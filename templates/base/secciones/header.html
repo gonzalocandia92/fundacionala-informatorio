@@ -53,17 +53,14 @@
                 
           </style>
                    <a class="navbar-brand" href="#"><img src="{% static 'img/ALA/Logo/logo.gif'%}" height="70"></a>
-                   
-                    
-          
-           
-           {% comment %} <li class="nav-item">
-            &nbsp&nbsp
-            </li> {% endcomment %}
        
            
           {% if request.session.email %}
                <ul class="nav navbar-nav">
+
+                <li class="nav-item">
+                <a class="btn btn-outline-success btn-sm" href="{% url 'perfil' %}" ><i class="fa fa-user-circle"></i> Mi perfil</a>&nbsp&nbsp
+                </li>
                     {% if tipouser %}
                     <li class="nav-item">
                     <a name="" id="" class="btn btn-outline-dark btn-sm" href="{% url 'dashboard' %}" role="button">Panel de control</a>&nbsp&nbsp
