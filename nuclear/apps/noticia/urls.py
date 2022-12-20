@@ -14,6 +14,7 @@ urlpatterns = [
     path('vision', views.vision, name='vision'),
     path('contacto', views.contacto, name='contacto'),
     path('donaciones', views.donaciones, name='donaciones'),
+    path('voluntariado', views.voluntariado, name='voluntariado'),
     path('dashboard/index', views.dashboard, name='dashboard'),
     path('centro', views.centro, name='centro'),
     path('consultorias', views.consultorias, name='consultorias'),

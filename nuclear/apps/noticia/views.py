@@ -8,8 +8,11 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.utils.crypto import get_random_string
+from django.core.paginator import Paginator
+from django.http import Http404
 from .models import *
 from .forms import * 
+
 
 
 
@@ -153,6 +156,9 @@ def contacto(request):
 def donaciones(request):
     return render(request, 'miscelaneo/donaciones.html')
 
+def voluntariado(request):
+    return render(request, 'miscelaneo/voluntariado.html')
+
 def centro(request):
     return render(request, 'miscelaneo/centro.html')
 
@@ -176,6 +182,7 @@ def editarperfil(request):
     try:
         user = get_object_or_404(Persona, email = request.session['email'])
         form = PerfilForm(request.POST or None, request.FILES or None, instance=user)
+        
         if form.is_valid() and request.POST:
             form.save()
             return redirect('perfil')
@@ -289,7 +296,15 @@ def dashboard(request):
 def listarCategoria(request):
     if validarUsr(request):
         categorias = Categoria.objects.all()
-        return render(request, "categoria/listar_categoria.html", {'categorias': categorias})
+        
+        page = request.GET.get('page', 1)
+        try:
+            paginator = Paginator(categorias, 8)
+            entity = paginator.page(page)
+        except:
+            raise Http404
+        
+        return render(request, "categoria/listar_categoria.html", {'entity': entity, 'paginator': paginator})
     else:
         return render(request, 'miscelaneo/error.html')
 
@@ -308,8 +323,7 @@ class CrearCategoria(generic.CreateView):
             new_comment = form.save(commit=False)
             messages.success(request, 'Categoria creada con éxito')
             new_comment.save()
-            categorias = Categoria.objects.all()
-            return render(request, 'categoria/listar_categoria.html', {'categorias': categorias})
+            return redirect('crear-categoria')
         else:
             return redirect('crear-categoria')
     
@@ -340,8 +354,18 @@ def editarCategoria(request, id):
 
 def listarNoticias(request):
     if validarUsr(request):
-        noticias = Noticia.objects.all().order_by('-fechaPublicacion')
-        return render(request, "noticia/listar_noticias.html", {'noticias': noticias})
+        noticias = Noticia.objects.all().order_by('-fechaPublicacion').order_by('status')
+        page = request.GET.get('page', 1)
+        
+        try:
+            paginator = Paginator(noticias, 8)
+            entity = paginator.page(page)
+        except:
+            raise Http404
+        
+        
+        
+        return render(request, "noticia/listar_noticias.html", {'entity': entity, 'paginator': paginator})
     else:
         return render(request, 'miscelaneo/error.html')
 
@@ -349,9 +373,6 @@ class CrearNoticia(generic.CreateView):
     model = Noticia
     template_name = 'noticia/crear_noticia.html'
     form_class = NoticiaForm
-
-    def get_success_url(self):
-        return reverse('listarNoticias')
     
     def post(self, request, *args, **kwargs):
         form = NoticiaForm(request.POST)
@@ -360,8 +381,7 @@ class CrearNoticia(generic.CreateView):
             new_comment = form.save(commit=False)
             messages.success(request, 'Noticia creada con éxito')
             new_comment.save()
-            noticias = Noticia.objects.all().order_by('-fechaPublicacion')
-            return render(request, 'noticia/listar_noticias.html', {'noticias': noticias})
+            return redirect('listarNoticias')
         else:
             return redirect('listarNoticias')
 
@@ -390,7 +410,15 @@ def editarNoticia(request, id):
 def listarStatus(request):
     if validarUsr(request):
         status = Status.objects.all()
-        return render(request, "status/listar_status.html", {'status': status})
+        
+        page = request.GET.get('page', 1)
+        try:
+            paginator = Paginator(status, 8)
+            entity = paginator.page(page)
+        except:
+            raise Http404
+        
+        return render(request, "status/listar_status.html", {'entity': entity, 'paginator': paginator})
     else:
         return render(request, 'miscelaneo/error.html')
 
@@ -409,10 +437,9 @@ class CrearStatus(generic.CreateView):
             new_comment = form.save(commit=False)
             messages.success(request, 'Estado creado con éxito')
             new_comment.save()
-            status = Status.objects.all()
-            return render(request, 'status/listar_status.html', {'status': status})
+            return redirect('listarStatus')
         else:
-            return redirect('listarNoticias')
+            return redirect('listarStatus')
 
 def eliminarStatus(request, id):
     if validarUsr(request):
@@ -439,7 +466,16 @@ def editarStatus(request, id):
 def listaPersonas(request):
     if validarUsr(request):
         personas = Persona.objects.all()
-        return render(request, "persona/listar_persona.html", {'personas': personas})
+        
+        page = request.GET.get('page', 1)
+        try:
+            paginator = Paginator(personas, 8)
+            entity = paginator.page(page)
+        except:
+            raise Http404
+        
+        
+        return render(request, "persona/listar_persona.html", {'entity': entity, 'paginator': paginator})
     else:
         return render(request, 'miscelaneo/error.html')
 
@@ -458,10 +494,9 @@ class CrearPersona(generic.CreateView):
             new_comment = form.save(commit=False)
             messages.success(request, 'Persona creada con éxito')
             new_comment.save()
-            personas = Persona.objects.all()
-            return render(request, 'persona/listar_persona.html', {'personas': personas})
+            return redirect('listaPersonas')
         else:
-            return redirect('listarNoticias')
+            return redirect('listaPersonas')
   
 def eliminarPersona(request, id):
     if validarUsr(request):
@@ -518,6 +553,7 @@ def eliminarComentarioDash(request, id, newsid):
 def listarComentarios(request):
     if validarUsr(request):
         noticias = Noticia.objects.all()
+        
         return render(request, "comentarios/listar_comentarios.html", {'noticias': noticias})
     else:
         return render(request, 'miscelaneo/error.html')   
@@ -530,9 +566,19 @@ def filtrarComentarios(request, news_id):
             news = get_object_or_404(Noticia, id=news_id)
         noticias = Noticia.objects.all()
         comentarios = Comentario.objects.filter(noticia = news).order_by('-fecha')
+        
+        page = request.GET.get('page', 1)
+        try:
+            paginator = Paginator(comentarios, 8)
+            entity = paginator.page(page)
+        except:
+            raise Http404
+        
+        
         contexto = {
             'noticias': noticias,
-            'comentarios': comentarios,
+            'entity': entity,
+            'paginator': paginator,
             'actual': news,
             }
         return render(request, "comentarios/listar_comentarios.html", contexto)

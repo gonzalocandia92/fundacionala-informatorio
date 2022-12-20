@@ -52,7 +52,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for comment in comentarios %}
+            {% for comment in entity %}
             <tr>
                 <td>{{comment.fecha}}</td>
                 <td>{{comment.contenido}}</td>
@@ -62,6 +62,9 @@
             {% endfor %}
         </tbody>
     </table>
+    <div>
+        {% include 'base/secciones/paginator.html' %}
+    </div>
 </div>
 
 {% endblock %}

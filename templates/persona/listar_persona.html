@@ -38,7 +38,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for persona in personas %}
+            {% for persona in entity %}
             <tr>
                 <td>{{persona.username}}</td>
                 <td>{{persona.nombreApellido}}</td>
@@ -50,6 +50,9 @@
             {% endfor %}
         </tbody>
     </table>
+    <div>
+        {% include 'base/secciones/paginator.html' %}
+    </div>
 </div>
 
 {% endblock %}
