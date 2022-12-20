@@ -3,6 +3,28 @@
 {% block NavName %}Lista de comentarios {% endblock %} 
 {% block NavBtn %} <a name="" id="" class="btn btn-outline-secondary btn-sm" href="{% url 'dashboard' %}" role="button">Volver</a>{% endblock %}
 {% block tablas %}
+
+<script>
+    function eliminarComentarioDash(id, newsid) { 
+        Swal.fire({
+            "title" : "¿Estas seguro?",
+            "text" : "Esta acción no se puede deshacer",
+            "icon" : "question",
+            "showCancelButton" : true,
+            "cancelButtonText" : "No, cancelar",
+            "confirmButtonText" : "Si, elimnar",
+            "reverseButtons" : true,
+            "confirmButtonColor" : "#dc3545"
+        })
+        .then(function(result) {
+            if(result.isConfirmed) {
+                window.location.href = "/dashboard/eliminarComentarioDash/"+id+"/"+newsid
+            }
+        })
+    }
+</script>
+
+
 <nav class="nav bg-success justify-content-center  ">
   <div class="dropdown open">
          <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
@@ -35,7 +57,7 @@
                 <td>{{comment.fecha}}</td>
                 <td>{{comment.contenido}}</td>
                 <td>{{comment.autor}}</td>
-                <td  class="text-center"><a name="" id="" class="btn btn-danger btn-sm" href="{% url 'eliminarComentarioDash' id=comment.id newsid=actual.id%}" role="button"><i class="bi bi-x"></i></a></td>
+                <td  class="text-center"><a onclick="eliminarComentarioDash({{ comment.id }}, {{actual.id}})"name="" id="" class="btn btn-danger btn-sm" href="#" role="button"><i class="bi bi-x"></i></a></td>
             </tr>
             {% endfor %}
         </tbody>
