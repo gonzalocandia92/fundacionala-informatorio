@@ -14,7 +14,56 @@ from .models import *
 from .forms import * 
 
 
+# ----- vistas principales ----- #
 
+def nosotros(request):
+    return render(request, 'miscelaneo/nosotros.html')
+
+def identidad(request):
+    return render(request, 'miscelaneo/identidad.html')
+
+def vision(request):
+    return render(request, 'miscelaneo/vision.html')
+
+def contacto(request):
+    return render(request, 'miscelaneo/contacto.html')
+
+def donaciones(request):
+    return render(request, 'miscelaneo/donaciones.html')
+
+def voluntariado(request):
+    return render(request, 'miscelaneo/voluntariado.html')
+
+def centro(request):
+    return render(request, 'miscelaneo/centro.html')
+
+def consultorias(request):
+    return render(request, 'miscelaneo/consultorias.html')
+
+def carpinteria(request):
+    return render(request, 'miscelaneo/carpinteria.html')
+
+def jardineria(request):
+    return render(request, 'miscelaneo/jardineria.html')
+
+def conservas(request):
+    return render(request, 'miscelaneo/conservas.html')
+
+def perfil(request):
+    user = get_object_or_404(Persona, email = request.session['email'])
+    return render(request, 'base/secciones/perfil.html', {'user':user})
+
+def editarperfil(request):
+    try:
+        user = get_object_or_404(Persona, email = request.session['email'])
+        form = PerfilForm(request.POST or None, request.FILES or None, instance=user)
+        
+        if form.is_valid() and request.POST:
+            form.save()
+            return redirect('perfil')
+        return render(request, "base/secciones/editarperfil.html", {'form': form})
+    except:
+        return render(request, 'miscelaneo/error.html')
 
 def enviarcontacto(request):
     if request.method == "POST":
@@ -61,6 +110,7 @@ def enviarcontacto(request):
             return render(request, 'base/secciones/email_template.html', contexto)    
 
 # ----- vistas de posteos ----- #
+
 class AutorListView(ListView):
     model = Noticia
     context_object_name = 'noticia'
@@ -72,7 +122,6 @@ class AutorListView(ListView):
          context['noticia'] = Noticia.objects.filter(autor=id).filter(status=1).order_by('-fechaPublicacion')
          context['autor'] = autores
          return context
-
 
 class CategoriaListView(ListView):
     model = Noticia
@@ -86,7 +135,6 @@ class CategoriaListView(ListView):
          context['categoria'] = categoria
          return context
 
-    
 class NoticiaListView(ListView):
     """Detail post."""
     model = Noticia
@@ -157,57 +205,6 @@ class NoticiaDetailView(DetailView):
         }
         return render(request, 'noticia/detalle.html', context) 
     
-    
-# ----- vistas principales ----- #
-
-def nosotros(request):
-    return render(request, 'miscelaneo/nosotros.html')
-
-def identidad(request):
-    return render(request, 'miscelaneo/identidad.html')
-
-def vision(request):
-    return render(request, 'miscelaneo/vision.html')
-
-def contacto(request):
-    return render(request, 'miscelaneo/contacto.html')
-
-def donaciones(request):
-    return render(request, 'miscelaneo/donaciones.html')
-
-def voluntariado(request):
-    return render(request, 'miscelaneo/voluntariado.html')
-
-def centro(request):
-    return render(request, 'miscelaneo/centro.html')
-
-def consultorias(request):
-    return render(request, 'miscelaneo/consultorias.html')
-
-def carpinteria(request):
-    return render(request, 'miscelaneo/carpinteria.html')
-
-def jardineria(request):
-    return render(request, 'miscelaneo/jardineria.html')
-
-def conservas(request):
-    return render(request, 'miscelaneo/conservas.html')
-
-def perfil(request):
-    user = get_object_or_404(Persona, email = request.session['email'])
-    return render(request, 'base/secciones/perfil.html', {'user':user})
-
-def editarperfil(request):
-    try:
-        user = get_object_or_404(Persona, email = request.session['email'])
-        form = PerfilForm(request.POST or None, request.FILES or None, instance=user)
-        
-        if form.is_valid() and request.POST:
-            form.save()
-            return redirect('perfil')
-        return render(request, "base/secciones/editarperfil.html", {'form': form})
-    except:
-        return render(request, 'miscelaneo/error.html')
 
 # ----- vistas de Sesión ----- #
 
@@ -224,7 +221,6 @@ def login(request):
         except Persona.DoesNotExist as e:
             messages.success(request, 'Nombre de usuario o Contraseña incorrecto')
     return render(request, 'sesion/login.html')
-
 
 def logout(request):
     try:
@@ -303,7 +299,6 @@ def validarUsr(request):
 # ----------------------------------    VISTAS DASHBOARD    ----------------------------------
 # ============================================================================================ #
 
-
 def dashboard(request):
     if validarUsr(request):
         return render(request, 'base/dashboard.html')
@@ -346,8 +341,6 @@ class CrearCategoria(generic.CreateView):
         else:
             return redirect('crear-categoria')
     
-    
-
 def eliminarCategoria(request, id):
     if validarUsr(request):
         categoria = Categoria.objects.get(id=id)
@@ -547,7 +540,6 @@ def handler404(request, exception, template_name="404.html"):
 def handler500(request, *args, **argv):
     return render(request, 'base/500.html', status=500)
 
-
 # ----- Comentarios ----- #
 
 def eliminarComentario(request, id, newsid):
@@ -603,5 +595,3 @@ def filtrarComentarios(request, news_id):
         return render(request, "comentarios/listar_comentarios.html", contexto)
     else:
         return render(request, 'miscelaneo/error.html')
-
-
