@@ -9,6 +9,7 @@ urlpatterns = [
     path('', views.NoticiaListView.as_view(), name='inicio'),
     path('<slug:slug>/', view=views.NoticiaDetailView.as_view(), name='post_detail'),
     path('categoria/<str:nombre>', views.CategoriaListView.as_view(), name='categoria'),
+    path('autores/<str:username>', views.AutorListView.as_view(), name='autores'),
     path('nosotros', views.nosotros, name='nosotros'),
     path('identidad', views.identidad, name='identidad'),
     path('vision', views.vision, name='vision'),

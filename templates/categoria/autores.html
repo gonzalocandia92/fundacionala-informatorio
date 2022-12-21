@@ -1,0 +1,57 @@
+{% extends 'miscelaneo/base.html '%}
+{% load static %}
+
+{% block tituloMiscelaneo %} {{autor.nombreApellido}} {% endblock %} 
+{% block retituloMiscelaneo %} {{autor}} {% endblock %} 
+
+{% block miscelaneoContenido %}
+
+<style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+    <div class="container-fluid align-items-center justify-content-center text-start">
+        <i><span class="text-muted"> Todas las noticias escritas por "{{autor}}"</span></i><br/><br/>
+        
+        {% for n in noticia %}
+            <div class="row mb-2 align-items-center justify-content-center">
+                    <div class="col-md-6">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow h-md-250 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-primary">{{n.fechaPublicacion}}</strong>
+                        <h3 class="mb-0">{{n.titulo}}</h3>
+                        <div class="mb-1 text-muted">Publicado por: {{n.autor}}</div>
+                        <p class="card-text mb-auto">{{n.subtitulo}}</p>
+                        <a href="{% url 'post_detail' n.slug %}" class="stretched-link">Ver más</a>
+                        </div>
+                        <div class="col-auto d-none d-lg-block">
+                            <img class="p-2 mx-auto objetfitcover" src="{{MEDIA_URL}}/media/{{n.imagen}}"
+                            style="
+                                width: 230px;
+                                height: 230px;
+                                object-fit: cover;
+                            ">
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        {% endfor %}
+    </div>
+
+<!------------- Informacion  -------->
+
+
+
+
+{% endblock %}

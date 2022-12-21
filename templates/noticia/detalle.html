@@ -26,7 +26,7 @@
                     
                     <!-- Post categories-->
                     <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'categoria' noticia.categoria %}">{{noticia.categoria}}</a>
-                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Escrito por {{noticia.autor}}</a>
+                    <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'autores' noticia.autor %}">Escrito por {{noticia.autor}}</a>
                 </header>
                 <!-- Preview image figure-->
                 <figure class="mb-4"><img class="img-fluid rounded" src="{{MEDIA_URL}}/media/{{noticia.imagen}}" alt="..." /></figure>
@@ -149,6 +149,23 @@
                                 <li><a href="{% url 'categoria' c.nombre %}">{{c.nombre}} </a></li>
                             </ul>
                             {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Autores widget-->
+            <div class="card mb-4">
+                <div class="card-header">Explora nuestros autores</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {% for a in autores %}
+                            <ul class="list-unstyled mb-0">
+                                <li><a href="{% url 'autores' a.username %}">{{a.username}} </a></li>
+                            </ul>
+                            {% endfor %}
+                            
                         </div>
                     </div>
                 </div>

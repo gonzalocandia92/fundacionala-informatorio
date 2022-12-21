@@ -61,6 +61,19 @@ def enviarcontacto(request):
             return render(request, 'base/secciones/email_template.html', contexto)    
 
 # ----- vistas de posteos ----- #
+class AutorListView(ListView):
+    model = Noticia
+    context_object_name = 'noticia'
+    template_name = 'categoria/autores.html'
+    def get_context_data(self, *args, **kwargs):
+         autores = get_object_or_404(Persona, username=self.kwargs.get('username'))
+         id = autores.id
+         context = super(AutorListView, self).get_context_data(**kwargs)
+         context['noticia'] = Noticia.objects.filter(autor=id).filter(status=1).order_by('-fechaPublicacion')
+         context['autor'] = autores
+         return context
+
+
 class CategoriaListView(ListView):
     model = Noticia
     context_object_name = 'noticia'
@@ -78,10 +91,12 @@ class NoticiaListView(ListView):
     """Detail post."""
     model = Noticia
     context_object_name = 'noticia'
+    queryset = Noticia.objects.filter(status=1).order_by('-fechaPublicacion')
     template_name = 'base/index.html'
     
     def get_context_data(self, **kwargs):
         context = super(NoticiaListView, self).get_context_data(**kwargs)
+        
         context['now'] = timezone.now()
         return context
 
@@ -100,6 +115,7 @@ class NoticiaDetailView(DetailView):
          context['noticia'] = get_object_or_404(Noticia, id=id)
          context['comentarios'] = Comentario.objects.filter(noticia=id)
          context['category'] = Categoria.objects.all()
+         context['autores'] = Persona.objects.filter(rol=3)
          return context
       
     def get(self, request, *args, **kwargs):
@@ -107,9 +123,11 @@ class NoticiaDetailView(DetailView):
         form = CommentForm()
         comentarios = Comentario.objects.filter(noticia = noticia).order_by('-fecha')
         category = Categoria.objects.all()
+        autores = Persona.objects.filter(rol=3)
         context = {
             'noticia': noticia,
             'form': form,
+            'autores': autores,
             'comentarios': comentarios,
             'category': category
         }
@@ -122,7 +140,7 @@ class NoticiaDetailView(DetailView):
         comentarios = Comentario.objects.filter(noticia = id).order_by('-fecha')
         x = get_object_or_404(Persona, email = request.session['email'])
         category = Categoria.objects.all()
-    
+        autores = Persona.objects.filter(rol=3)
         if form.is_valid():
             new_comment = form.save(commit=False)
             new_comment.autor = x
@@ -133,6 +151,7 @@ class NoticiaDetailView(DetailView):
         context = {
             'noticia': noticia,
             'form': form,
+            'autores': autores,
             'category': category,
             'comentarios': comentarios,
         }
